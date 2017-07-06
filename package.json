@@ -1,0 +1,44 @@
+{
+  "name": "mahrio-header",
+  "description": "Header as a Service",
+  "author": {
+    "name": "Jesus Rocha",
+    "email": "jesus.rocha@whichdegree.co"
+  },
+  "version": "1.0.0",
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "NODE_ENV='dev' webpack --watch --profile --bail",
+    "prebuild": "npm update",
+    "build": "NODE_ENV='prod' webpack --profile --bail"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=6.9.1",
+    "npm": ">= 3.0.0"
+  },
+  "main": "dist/main.js",
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-env": "^1.5.2",
+    "babel-register": "^6.24.1",
+    "babelify": "^7.3.0",
+    "babili-webpack-plugin": "^0.1.1",
+    "copy-webpack-plugin": "^4.0.1",
+    "css-loader": "^0.28.4",
+    "extract-text-webpack-plugin": "^2.1.2",
+    "file-loader": "^0.11.2",
+    "html-webpack-plugin": "^2.28.0",
+    "node-sass": "^4.5.3",
+    "raw-loader": "^0.5.1",
+    "sass-loader": "^6.0.5",
+    "style-loader": "^0.18.2",
+    "url-loader": "^0.5.9",
+    "webpack": "^2.6.1",
+    "mahrio": "https://github.com/JRGEMCP/MAHRIO.git#master",
+    "node-env-file": "^0.1.8" 
+  }
+}
