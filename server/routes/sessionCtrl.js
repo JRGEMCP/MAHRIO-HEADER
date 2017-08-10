@@ -1,7 +1,14 @@
 'use strict';
 
-var Mongoose = require('mongoose'),
-  User = Mongoose.model('User'),
+try {
+  var Mongoose = require('mongoose');
+} catch (_) {
+  // workaround when `npm link`'ed for development
+  var prequire = require('parent-require')
+    , Mongoose = prequire('mongoose');
+}
+
+var User = Mongoose.model('User'),
   Boom = require('boom'),
   crypto = require('crypto');
 

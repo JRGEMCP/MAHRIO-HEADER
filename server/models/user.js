@@ -1,7 +1,14 @@
 'use strict';
 
+try {
+  var mongoose = require('mongoose');
+} catch (_) {
+  // workaround when `npm link`'ed for development
+  var prequire = require('parent-require')
+    , mongoose = prequire('mongoose');
+}
+
 var crypto = require('crypto')
-  , mongoose = require('mongoose')
   , _ = require('lodash')
   , schema = mongoose.Schema({
   email: { type: String, trim: true, lowercase: true, required: true, index: true, unique: true},
