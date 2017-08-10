@@ -28,7 +28,7 @@ export class RegisterComponent {
   }
 
   register(){
-    this.session.register(this.user)
+    this._subs = this.session.register(this.user)
       .subscribe( res => {
         this.session.setToken( res.headers.get('authorization') );
         localStorage.Authorization = res.headers.get('authorization');
@@ -36,6 +36,9 @@ export class RegisterComponent {
       }, err => {
         console.log('err: '+err)
     });
+  }
+  ngOnDestroy(){
+    if( this._subs ) { this._subs.unsubscribe(); }
   }
 }
 

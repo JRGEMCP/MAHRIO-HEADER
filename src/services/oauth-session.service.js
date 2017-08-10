@@ -32,14 +32,15 @@ export class OauthSessionService {
   confirmEmail(){
 
   }
-  recoverPassword(){
-
+  recoverPassword(email){
+    return this.http.post(`/api/session/recover-password`, {email: email})
+        .map(res => res.json() || {});
   }
-  isValidToken(){
-
+  isValidToken( token ){
+    return this.http.post(`/api/session/is-valid-token`, {token: token}).toPromise();
   }
-  changePassword(){
-
+  changePassword(token, password){
+    return this.http.post(`/api/session/change-password`, {token: token, password: password});
   }
   logout( all ){
     let action = all ? 'log-off-all-devices' : 'logout';

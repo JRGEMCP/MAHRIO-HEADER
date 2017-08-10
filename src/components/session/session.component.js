@@ -5,7 +5,7 @@ import template from './session.template.html';
 @Component({
   selector: 'session',
   template,
-  inputs: ['state']
+  inputs: ['state', 'token']
 })
 
 export class SessionComponent {

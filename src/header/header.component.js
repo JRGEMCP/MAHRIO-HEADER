@@ -1,5 +1,5 @@
 import { Component, EventEmitter } from '@angular/core';
-
+import { ActivatedRoute } from '@angular/router';
 import template from './header.template.html';
 import style from './header.style.scss';
 
@@ -18,13 +18,24 @@ import { SessionComponent } from '../components/session/session.component';
 export class HeaderComponent {
 
   static get parameters(){
-    return [NgbModal, OauthSessionService];
+    return [NgbModal, OauthSessionService, ActivatedRoute];
   }
-  constructor( ngbModal, oauthSession ){
+  constructor( ngbModal, oauthSession, activateRoute ){
     this.ngbModal = ngbModal;
     this.session = oauthSession;
+    this.route = activateRoute;
     this.authToken = localStorage.Authorization ? localStorage.Authorization : null;
     this.auth = new EventEmitter();
+    this.route.queryParams.subscribe(params => {
+      if( params['token'] ) {
+        this.session.isValidToken( params['token'] )
+          .then( res => {
+            this.sessionInit('recover-password-update', params['token']);
+          }, err => {
+
+          })
+      }
+    });
   }
 
   ngOnInit(){
@@ -41,14 +52,16 @@ export class HeaderComponent {
     }
   }
 
-  sessionInit( state ){
+  sessionInit( state, token ){
     this.modalRef = this.ngbModal.open( SessionComponent )
     this.modalRef.componentInstance.state = state;
+    this.modalRef.componentInstance.token = token || null;
     this.modalRef.result
       .then( (result) => {
           this.account = result;
           delete this.accountMenu;
-      });
+          delete this.isCollapsed;
+      }, (reason) => {  });
   }
 
   logoutAll( all ) {
@@ -56,6 +69,7 @@ export class HeaderComponent {
       .subscribe( res => {
         this.account = false;
         delete localStorage.Authorization;
+        delete this.isCollapsed;
       }, err => {
 
       });

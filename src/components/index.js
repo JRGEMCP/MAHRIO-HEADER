@@ -1,13 +1,15 @@
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { ResetPasswordComponent } from './resetpassword/reset-password.component';
+import { RecoverPasswordComponent } from './recoverpassword-/recover-password.component';
+import { RecoverPasswordUpdateComponent } from './recoverpassword-update/recover-password-update.component';
 
 import { SessionComponent } from './session/session.component';
 
 export {
   LoginComponent,
   RegisterComponent,
-  ResetPasswordComponent,
+  RecoverPasswordComponent,
+  RecoverPasswordUpdateComponent,
 
   SessionComponent,
 };
@@ -15,7 +17,8 @@ export {
 export const Components = [
   LoginComponent,
   RegisterComponent,
-  ResetPasswordComponent,
+  RecoverPasswordComponent,
+  RecoverPasswordUpdateComponent,
 
   SessionComponent,
 ];

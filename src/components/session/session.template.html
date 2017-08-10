@@ -13,8 +13,12 @@
         <register (go)="goTo($event)" (access)="auth()"></register>
     </div>
 
-    <div [ngbCollapse]="state !== 'reset-password'">
-        <reset-password (go)="goTo($event)"></reset-password>
+    <div [ngbCollapse]="state !== 'recover-password'">
+        <recover-password (go)="goTo($event)"></recover-password>
+    </div>
+
+    <div [ngbCollapse]="state !== 'recover-password-update'">
+        <recover-password-update [token]="token" (access)="auth()"></recover-password-update>
     </div>
 
 </div>
