@@ -23,6 +23,9 @@ export class SessionComponent {
   goTo( state ) {
     this.state = state;
   }
+  auth(){
+    this.activeModal.close(true);
+  }
 
 }
 

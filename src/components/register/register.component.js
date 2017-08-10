@@ -7,7 +7,7 @@ import { OauthSessionService } from '../../services';
 @Component({
   selector: 'register',
   template,
-  outputs: ['go']
+  outputs: ['go', 'access']
 })
 
 export class RegisterComponent {
@@ -19,6 +19,8 @@ export class RegisterComponent {
   constructor(OauthSessionService){
     this.session = OauthSessionService;
     this.go = new EventEmitter();
+    this.access = new EventEmitter();
+    this.user = {};
   }
 
   goTo( state ) {
@@ -26,10 +28,14 @@ export class RegisterComponent {
   }
 
   register(){
-    this.session.register({user: {email: 'jesus.rocha@whichdegree.co', password: '12345678'}})
+    this.session.register(this.user)
       .subscribe( res => {
-        console.log(res);
-    })
+        this.session.setToken( res.headers.get('authorization') );
+        localStorage.Authorization = res.headers.get('authorization');
+        this.access.emit( );
+      }, err => {
+        console.log('err: '+err)
+    });
   }
 }
 

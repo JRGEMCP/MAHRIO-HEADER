@@ -29,6 +29,17 @@ module.exports = function ( server ) {
   });
 
   server.route({
+    method: 'GET',
+    path: '/api/session/user',
+    config: {
+      handler: function(request, reply){
+        reply({user: true});
+      },
+      auth: 'simple'
+    }
+  });
+
+  server.route({
     method: 'POST',
     path: '/api/session/{action?}',
     config: {
