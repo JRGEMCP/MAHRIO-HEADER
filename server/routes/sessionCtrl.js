@@ -56,7 +56,7 @@ module.exports = {
       })
     });
   },
-  register: function (request, reply) { console.log('in here');
+  register: function (request, reply) {
     if (request.auth.isAuthenticated) { return reply(Boom.badRequest('You Logged In')); }
 
     if( !request.payload.user ){

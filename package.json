@@ -10,7 +10,8 @@
     "start": "npm run dev",
     "dev": "NODE_ENV='dev' webpack --watch --profile --bail",
     "prebuild": "npm update",
-    "build": "NODE_ENV='prod' webpack --profile --bail"
+    "build": "NODE_ENV='prod' webpack --profile --bail",
+    "link": "npm install boom bluebird parent-require"
   },
   "license": "MIT",
   "engines": {
@@ -36,7 +37,6 @@
     "mahrio": "https://github.com/JRGEMCP/MAHRIO.git#master",
     "node-env-file": "^0.1.8",
     "node-sass": "^4.5.3",
-    "parent-require": "^1.0.0",
     "raw-loader": "^0.5.1",
     "sass-loader": "^6.0.5",
     "style-loader": "^0.18.2",
