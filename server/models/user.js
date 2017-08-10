@@ -9,7 +9,6 @@ try {
 }
 
 var crypto = require('crypto')
-  , _ = require('lodash')
   , schema = mongoose.Schema({
   email: { type: String, trim: true, lowercase: true, required: true, index: true, unique: true},
   confirmed:            {type: Boolean, default: false},
