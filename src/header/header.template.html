@@ -14,25 +14,10 @@
             </li>
         </ul>
         <div class="form-inline my-2 my-lg-0">
-            <i class='fa fa-spinner fa-spin text-white' *ngIf="loading"></i>
-            <div class="dropdown" *ngIf="!loading && account">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="true" (click)="accountMenu = !accountMenu">
-                    Account
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1" [ngbCollapse]="!accountMenu">
-                    <li><a href="#">Password</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a (click)="logoutAll()">Logout</a></li>
-                    <li><a (click)="logoutAll(1)">Logout All Devices</a></li>
-                </ul>
-            </div>
-
-            <button class="btn btn-outline-success my-2 my-sm-0"
-                    *ngIf="!loading && !account" (click)="sessionInit('register')">Register</button>&nbsp;
-            <button class="btn btn-outline-success my-2 my-sm-0"
-                    *ngIf="!loading && !account" (click)="sessionInit('login')">Login</button>
+            <ul class="nav text-white">
+                <notification *ngIf="isLoggedIn"></notification>
+                <session (auth)="auth($event)"></session>
+            </ul>
         </div>
     </div>
 </nav>

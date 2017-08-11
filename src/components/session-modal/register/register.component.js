@@ -1,15 +1,16 @@
 import { Component, EventEmitter } from '@angular/core';
-import template from './login.template.html';
+import { Http } from '@angular/http';
+import template from './register.template.html';
 
-import { OauthSessionService } from '../../services';
+import { OauthSessionService } from '../../../services';
 
 @Component({
-  selector: 'login',
+  selector: 'register',
   template,
-  outputs: ['go','access']
+  outputs: ['go', 'access']
 })
 
-export class LoginComponent {
+export class RegisterComponent {
 
   static get parameters(){
     return [OauthSessionService];
@@ -22,22 +23,19 @@ export class LoginComponent {
     this.user = {};
   }
 
-  ngOnInit(){
-  }
-
   goTo( state ) {
     this.go.emit( state );
   }
 
-  login(){
-    this._subs = this.session.login(this.user)
+  register(){
+    this._subs = this.session.register(this.user)
       .subscribe( res => {
         this.session.setToken( res.headers.get('authorization') );
         localStorage.Authorization = res.headers.get('authorization');
         this.access.emit( );
       }, err => {
-          console.log('err: '+err)
-      });
+        console.log('err: '+err)
+    });
   }
   ngOnDestroy(){
     if( this._subs ) { this._subs.unsubscribe(); }

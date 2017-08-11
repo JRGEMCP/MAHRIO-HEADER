@@ -6,7 +6,6 @@ export class OauthSessionService {
   static get parameters(){
     return [Http];
   }
-
   constructor( http ){
     this.http = http;
     this.token = null;
@@ -43,10 +42,13 @@ export class OauthSessionService {
   changePassword(token, password){
     return this.http.post(`/api/session/change-password`, {token: token, password: password});
   }
+  updatePassword( passwords ) {
+    return this.http.post(`/api/session/update-password`, {passwords: passwords},
+      {headers: new Headers({'Authorization': this.token})}).toPromise();
+  }
   logout( all ){
     let action = all ? 'log-off-all-devices' : 'logout';
     return this.http.post(`/api/session/${action}`, {}, {headers: new Headers({'Authorization': this.token})})
         .map(res => res.json() || {});
   }
-
 }

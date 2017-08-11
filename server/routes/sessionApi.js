@@ -23,7 +23,7 @@ module.exports = function ( server ) {
         if (err || !user || typeof user === 'undefined') {
           return callback(null, false, { token: token });
         }
-        callback(null, true, { token: token, access: user.access, id: user.id, networks: user.networks });
+        callback(null, true, { token: token, access: user.access, id: user.id, networks: user.networks, confirmed: user.confirmed });
       });
     }
   });
@@ -33,7 +33,7 @@ module.exports = function ( server ) {
     path: '/api/session/user',
     config: {
       handler: function(request, reply){
-        reply({user: true});
+        reply({confirmed: request.auth.credentials.confirmed});
       },
       auth: 'simple'
     }
@@ -59,6 +59,8 @@ module.exports = function ( server ) {
             return SessionCtrl.isValidToken( request, reply );
           case 'change-password':
             return SessionCtrl.changePassword( request, reply );
+          case 'update-password':
+            return SessionCtrl.updatePassword( request, reply);
           case 'logout':
             return SessionCtrl.logout( request, reply );
           case 'log-off-all-devices':

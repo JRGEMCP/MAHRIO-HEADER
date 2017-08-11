@@ -21,7 +21,7 @@ module.exports = {
     User.login(request.payload.email.toLowerCase(), request.payload.password, function (err, user) {
       if (err) { return reply(Boom.unauthorized(err)); }
 
-      reply({access: user.access})
+      reply({access: user.access, confirmed: user.confirmed})
         .header('Authorization', 'Bearer ' + user.token)
         .header('Access-Control-Expose-Headers', 'authorization');
     });
@@ -56,6 +56,15 @@ module.exports = {
       })
     });
   },
+  updatePassword: function(request, reply){
+    if (!request.auth.isAuthenticated) { return reply(Boom.badRequest()); }
+
+    User.updatePassword( request.auth.credentials.id, request.payload.passwords, function(err){
+      if( err )  { return reply( Boom.badRequest()); }
+
+      reply(true);
+    });
+  },
   register: function (request, reply) {
     if (request.auth.isAuthenticated) { return reply(Boom.badRequest('You Logged In')); }
 
@@ -64,7 +73,7 @@ module.exports = {
     }
     request.payload.user.access = ['authorized'];
     User.create( request.payload.user).then(function(user){
-        reply({access: user.access })
+        reply({access: user.access, confirmed: false })
           .header('Authorization', 'Bearer ' + user.authorizationToken)
           .header('Access-Control-Expose-Headers', 'authorization');
       }).catch(function(err){

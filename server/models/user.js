@@ -140,14 +140,30 @@ schema.statics.login = function(email, passwordToMatch, cb) {
     }
 
     user.save().then( function(){
-      cb(null, {access: user.access, token: token});
+      cb(null, {access: user.access, token: token, confirmed: user.confirmed});
     });
     return null;
   }).catch(function(err){
     cb(true);
   });
 };
+schema.statics.updatePassword = function(id, passwords, cb) {
+  if(!id || !passwords.currentPassword || !passwords.newPassword) { return cb(true); }
 
+  this.findOne({_id: id}).exec().then( function(user){
+    if( !user ) { return cb(true); }
+
+    if( hashPwd(user.salt, passwords.currentPassword) !== user.password ) {
+      return cb(true);
+    }
+    user.password = hashPwd(user.salt, passwords.newPassword);
+    user.save().then( function(){
+      cb( null );
+    })
+  }).catch(function(err){
+    cb(true);
+  });
+}
 schema.pre('save', function (next) {
   if (this.isNew) {
     this.salt = createSalt();

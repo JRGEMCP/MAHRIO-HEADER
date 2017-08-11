@@ -1,12 +1,12 @@
 import { Component, EventEmitter } from '@angular/core';
 import template from './recover-password.template.html';
 
-import { OauthSessionService } from '../../services';
+import { OauthSessionService } from '../../../services';
 
 @Component({
   selector: 'recover-password',
   template,
-  outputs: ['go']
+  outputs: ['go', 'done']
 })
 
 export class RecoverPasswordComponent {
@@ -18,6 +18,7 @@ export class RecoverPasswordComponent {
   constructor(OauthSessionService){
     this.session = OauthSessionService;
     this.go = new EventEmitter();
+    this.done = new EventEmitter();
     this.email = '';
   }
 
@@ -31,8 +32,11 @@ export class RecoverPasswordComponent {
   recoverPassword(){
     this.session.recoverPassword( this.email )
       .subscribe( res => {
-        console.log(res);
+        this.success = true;
       })
+  }
+  close(){
+    this.done.emit();
   }
 }
 

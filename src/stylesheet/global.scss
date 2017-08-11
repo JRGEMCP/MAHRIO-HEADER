@@ -1,3 +1,11 @@
-
-
 @import "_grid";
+
+.no-outline {
+  outline: none;
+}
+.badge-notification {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  font-size: .4rem;
+}

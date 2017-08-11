@@ -1,0 +1,35 @@
+<div class="modal-header">
+    <h4 class="modal-title">Session</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div [ngbCollapse]="state !== 'login'">
+        <login (go)="goTo($event)" (access)="auth()"></login>
+    </div>
+
+    <div [ngbCollapse]="state !== 'register'">
+        <register (go)="goTo($event)" (access)="auth()"></register>
+    </div>
+
+    <div [ngbCollapse]="state !== 'recover-password'">
+        <recover-password (go)="goTo($event)" (done)="activeModal.dismiss()"></recover-password>
+    </div>
+
+    <div [ngbCollapse]="state !== 'recover-password-update'">
+        <recover-password-update [token]="token" (access)="auth()"></recover-password-update>
+    </div>
+
+    <div [ngbCollapse]="state !== 'confirm-account'">
+        <confirm-account (done)="activeModal.dismiss()"></confirm-account>
+    </div>
+
+    <div [ngbCollapse]="state !== 'update-password'">
+        <update-password></update-password>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="activeModal.close(false)">Close</button>
+</div>

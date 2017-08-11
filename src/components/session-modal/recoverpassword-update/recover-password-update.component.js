@@ -1,7 +1,7 @@
 import { Component, EventEmitter } from '@angular/core';
 import template from './recover-password-update.template.html';
 
-import { OauthSessionService } from '../../services';
+import { OauthSessionService } from '../../../services';
 
 @Component({
   selector: 'recover-password-update',
