@@ -53,6 +53,7 @@ export class HeaderComponent {
   }
 
   sessionInit( state, token ){
+    delete this.isCollapsed;
     this.modalRef = this.ngbModal.open( SessionComponent )
     this.modalRef.componentInstance.state = state;
     this.modalRef.componentInstance.token = token || null;
