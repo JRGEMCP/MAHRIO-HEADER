@@ -64,7 +64,7 @@ schema.statics.changePassword = function( user, password, cb ){
     cb(null, {token: authorizationToken, access: access});
   });
 };
-schema.statics.confirmEmail = function(token, cb){
+schema.statics.confirmAccount = function(token, cb){
   if( !token ) { return cb(true); }
 
   this.findOne({confirmedToken: token}, function(err, user){

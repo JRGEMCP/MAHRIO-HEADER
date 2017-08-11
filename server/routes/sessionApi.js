@@ -49,8 +49,8 @@ module.exports = function ( server ) {
             return SessionCtrl.register(request, reply);
           case 'resend-confirm-email':
             return SessionCtrl.resendConfirmEmail( request, reply);
-          case 'confirm-email':
-            return SessionCtrl.confirmEmail( request, reply);
+          case 'confirm-account':
+            return SessionCtrl.confirmAccount( request, reply);
           case 'login':
             return SessionCtrl.login( request, reply );
           case 'recover-password':

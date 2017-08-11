@@ -34,6 +34,11 @@ export class HeaderComponent {
           }, err => {
 
           })
+      } else if( params['confirm'] ) {
+        this.session.confirmAccount( params['confirm'] )
+          .then( res => {
+            this.sessionInit('confirm-account');
+          })
       }
     });
   }

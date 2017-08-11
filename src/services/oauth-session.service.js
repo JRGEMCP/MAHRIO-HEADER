@@ -29,8 +29,9 @@ export class OauthSessionService {
   resendConfirmEmail(){
 
   }
-  confirmEmail(){
-
+  confirmAccount( token ){
+    return this.http.post(`/api/session/confirm-account`, {token: token})
+      .toPromise();
   }
   recoverPassword(email){
     return this.http.post(`/api/session/recover-password`, {email: email})

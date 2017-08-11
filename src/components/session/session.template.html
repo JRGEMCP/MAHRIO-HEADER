@@ -21,6 +21,10 @@
         <recover-password-update [token]="token" (access)="auth()"></recover-password-update>
     </div>
 
+    <div [ngbCollapse]="state !== 'confirm-account'">
+        <confirm-account (done)="activeModal.dismiss()"></confirm-account>
+    </div>
+
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="activeModal.close(false)">Close</button>

@@ -81,8 +81,8 @@ module.exports = {
       reply({resendConfirmationToken: true});
     })
   },
-  confirmEmail: function ( request, reply){
-    User.confirmEmail(request.payload.token, function(err){
+  confirmAccount: function ( request, reply){
+    User.confirmAccount(request.payload.token, function(err){
       if( err ) { return reply(Boom.badRequest()); }
 
       reply({confirmed: true});
