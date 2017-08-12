@@ -5,7 +5,7 @@ import template from './session.template.html';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SessionModalComponent } from '../session-modal/session-modal.component';
 
-import { OauthSessionService } from '../../services';
+import { OauthSessionService, NotificationService } from '../../services';
 
 @Component({
   selector: 'session',
@@ -15,11 +15,12 @@ import { OauthSessionService } from '../../services';
 
 export class SessionComponent {
   static get parameters(){
-    return [NgbModal, ActivatedRoute, OauthSessionService];
+    return [NgbModal, ActivatedRoute, OauthSessionService, NotificationService];
   }
-  constructor(ngbModal, activateRoute, oauthSession){
+  constructor(ngbModal, activateRoute, oauthSession, notificationService){
     this.ngbModal = ngbModal;
     this.route = activateRoute;
+    this.notice = notificationService;
     this.route.queryParams.subscribe(params => {
       if( params['token'] ) {
         this.session.isValidToken( params['token'] )
@@ -45,6 +46,7 @@ export class SessionComponent {
           this.loading = false;
           this.account = true;
           this.auth.emit(true);
+          if( !res.confirmed ) { this.notice.addNotice('not confirmmmmed'); }
         }, err => {
           delete localStorage.Authorization;
           this.loading = false;
@@ -71,6 +73,7 @@ export class SessionComponent {
         delete localStorage.Authorization;
         delete this.isCollapsed;
         this.auth.emit(false);
+        this.notice.clearAll();
       }, err => { });
   }
 }

@@ -2,9 +2,14 @@
     <a class="nav-link text-white" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
        (click)="notifications = !notifications">
         <i class="fa fa-bell"></i>
-        <span class="badge badge-info badge-notification">1</span>
+        <span class="badge badge-info badge-notification" *ngIf="notices.length">{{notices.length}}</span>
     </a>
-    <div class="dropdown-menu dropdown-menu-right" [ngbCollapse]="!notifications">
-        Confirm Account
-    </div>
+    <ul class="dropdown-menu dropdown-menu-right" [ngbCollapse]="!notifications">
+        <li class="dropdown-item" *ngIf="!notices.length">
+            You have 0 notices.
+        </li>
+        <li class="dropdown-item" *ngFor="let notice of notices">
+            {{notice}}
+        </li>
+    </ul>
 </li>

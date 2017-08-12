@@ -1,7 +1,7 @@
 import { Component, EventEmitter } from '@angular/core';
 import template from './login.template.html';
 
-import { OauthSessionService } from '../../../services';
+import { OauthSessionService, NotificationService } from '../../../services';
 
 @Component({
   selector: 'login',
@@ -12,11 +12,12 @@ import { OauthSessionService } from '../../../services';
 export class LoginComponent {
 
   static get parameters(){
-    return [OauthSessionService];
+    return [OauthSessionService, NotificationService];
   }
 
-  constructor(OauthSessionService){
+  constructor(OauthSessionService, NotificationService){
     this.session = OauthSessionService;
+    this.notice = NotificationService;
     this.go = new EventEmitter();
     this.access = new EventEmitter();
     this.user = {};
@@ -35,6 +36,7 @@ export class LoginComponent {
         this.session.setToken( res.headers.get('authorization') );
         localStorage.Authorization = res.headers.get('authorization');
         this.access.emit( );
+        if( !res.confirmed ) { this.notice.addNotice('Not Confirmed'); }
       }, err => {
           console.log('err: '+err)
       });

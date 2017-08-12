@@ -15,7 +15,7 @@
         </ul>
         <div class="form-inline my-2 my-lg-0">
             <ul class="nav text-white">
-                <notification *ngIf="isLoggedIn"></notification>
+                <notification *ngIf="isLoggedIn" ></notification>
                 <session (auth)="auth($event)"></session>
             </ul>
         </div>
