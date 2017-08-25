@@ -29,6 +29,10 @@
         <update-password></update-password>
     </div>
 
+    <div [ngbCollapse]="state !== 'confirm-account-retry'">
+        <confirm-account-retry (done)="activeModal.dismiss()"></confirm-account-retry>
+    </div>
+
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="activeModal.close(false)">Close</button>

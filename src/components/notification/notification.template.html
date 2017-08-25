@@ -1,15 +1,17 @@
-<li class="nav-item dropdown no-outline" (blur)="notifications = false" tabindex="0">
+<li class="nav-item dropdown no-outline" tabindex="0" (blur)="timedCollapse()">
     <a class="nav-link text-white" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
        (click)="notifications = !notifications">
         <i class="fa fa-bell"></i>
         <span class="badge badge-info badge-notification" *ngIf="notices.length">{{notices.length}}</span>
     </a>
     <ul class="dropdown-menu dropdown-menu-right" [ngbCollapse]="!notifications">
-        <li class="dropdown-item" *ngIf="!notices.length">
+        <li class="dropdown-item zero-notices" *ngIf="!notices.length">
             You have 0 notices.
         </li>
-        <li class="dropdown-item" *ngFor="let notice of notices">
-            {{notice}}
+        <li *ngFor="let notice of notices">
+            <a class="dropdown-item" (click)="notice.goTo()">
+                {{notice.subject}}
+            </a>
         </li>
     </ul>
 </li>

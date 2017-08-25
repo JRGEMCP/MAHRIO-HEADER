@@ -2,7 +2,8 @@ import { Component, EventEmitter } from '@angular/core';
 import { Http } from '@angular/http';
 import template from './register.template.html';
 
-import { OauthSessionService } from '../../../services';
+import { OauthSessionService, NotificationService } from '../../../services';
+import { Notice } from '../../../models';
 
 @Component({
   selector: 'register',
@@ -13,11 +14,12 @@ import { OauthSessionService } from '../../../services';
 export class RegisterComponent {
 
   static get parameters(){
-    return [OauthSessionService];
+    return [OauthSessionService, NotificationService];
   }
 
-  constructor(OauthSessionService){
+  constructor(OauthSessionService, NotificationService){
     this.session = OauthSessionService;
+    this.notice = NotificationService;
     this.go = new EventEmitter();
     this.access = new EventEmitter();
     this.user = {};
@@ -33,6 +35,7 @@ export class RegisterComponent {
         this.session.setToken( res.headers.get('authorization') );
         localStorage.Authorization = res.headers.get('authorization');
         this.access.emit( );
+        this.notice.addNotice( new Notice() );
       }, err => {
         console.log('err: '+err)
     });

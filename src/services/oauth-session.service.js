@@ -12,12 +12,14 @@ export class OauthSessionService {
   }
   setToken( token ) {
     this.token = token;
+    console.log( token );
   }
   user(token){
     this.token = token;
-    let options = new RequestOptions({ headers: new Headers({'Authorization': this.token}) })
+    let options = new RequestOptions({ headers: new Headers({'Authorization': this.token}) });
     return this.http.get('/api/session/user', options)
-      .map(res => res.json() || {});
+      .map(res => res.json() || {})
+      .toPromise();
   }
   login( user ){
     return this.http.post(`/api/session/login`, user)
@@ -26,7 +28,8 @@ export class OauthSessionService {
     return this.http.post(`/api/session/register`, {user: user})
   }
   resendConfirmEmail(){
-
+    let options = new RequestOptions({ headers: new Headers({'Authorization': this.token}) })
+    return this.http.post(`/api/session/resend-confirm-email`, {}, options).toPromise();
   }
   confirmAccount( token ){
     return this.http.post(`/api/session/confirm-account`, {token: token})
@@ -48,7 +51,6 @@ export class OauthSessionService {
   }
   logout( all ){
     let action = all ? 'log-off-all-devices' : 'logout';
-    return this.http.post(`/api/session/${action}`, {}, {headers: new Headers({'Authorization': this.token})})
-        .map(res => res.json() || {});
+    return this.http.post(`/api/session/${action}`, {}, {headers: new Headers({'Authorization': this.token})});
   }
 }

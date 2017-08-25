@@ -6,6 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SessionModalComponent } from '../session-modal/session-modal.component';
 
 import { OauthSessionService, NotificationService } from '../../services';
+import { Notice } from '../../models';
 
 @Component({
   selector: 'session',
@@ -42,11 +43,11 @@ export class SessionComponent {
     if( this.authToken ) {
       this.loading = true;
       this.session.user(this.authToken)
-        .subscribe(res => {
+        .then(res => {
           this.loading = false;
           this.account = true;
-          this.auth.emit(true);
-          if( !res.confirmed ) { this.notice.addNotice('not confirmmmmed'); }
+          this.auth.emit(true); console.log( res );
+          if( !res.confirmed ) { this.notice.addNotice( new Notice({modal: this.ngbModal, component: SessionModalComponent, state: 'confirm-account-retry'}) ); }
         }, err => {
           delete localStorage.Authorization;
           this.loading = false;

@@ -2,6 +2,10 @@ import { Component, EventEmitter } from '@angular/core';
 import template from './login.template.html';
 
 import { OauthSessionService, NotificationService } from '../../../services';
+import { Notice } from '../../../models';
+
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SessionModalComponent } from '../../session-modal/session-modal.component';
 
 @Component({
   selector: 'login',
@@ -12,10 +16,11 @@ import { OauthSessionService, NotificationService } from '../../../services';
 export class LoginComponent {
 
   static get parameters(){
-    return [OauthSessionService, NotificationService];
+    return [OauthSessionService, NotificationService, NgbModal];
   }
 
   constructor(OauthSessionService, NotificationService){
+    this.ngbModal = NgbModal;
     this.session = OauthSessionService;
     this.notice = NotificationService;
     this.go = new EventEmitter();
@@ -36,7 +41,7 @@ export class LoginComponent {
         this.session.setToken( res.headers.get('authorization') );
         localStorage.Authorization = res.headers.get('authorization');
         this.access.emit( );
-        if( !res.confirmed ) { this.notice.addNotice('Not Confirmed'); }
+        if( !res.json().confirmed ) { this.notice.addNotice( new Notice({modal: this.ngbModal, component: SessionModalComponent, state: 'confirm-account-retry'}) ); }
       }, err => {
           console.log('err: '+err)
       });

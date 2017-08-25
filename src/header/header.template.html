@@ -1,16 +1,20 @@
+<div style="height: 56px; width: 100%;"></div>
 <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
     <button class="navbar-toggler navbar-toggler-right" type="button" (click)="isCollapsed = !isCollapsed">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" [routerLink]="['/']">Mahr.io</a>
+    <a class="navbar-brand" href="/">Mahr.io</a>
 
     <div class="collapse navbar-collapse" [ngbCollapse]="!isCollapsed">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" (click)="isCollapsed = !isCollapsed" [routerLink]="['/']">Home</a>
+                <a class="nav-link" (click)="isCollapsed = !isCollapsed" href="/">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" (click)="isCollapsed = !isCollapsed" [routerLink]="['/','tutorials']">Tutorials</a>
+                <a class="nav-link" (click)="isCollapsed = !isCollapsed" href="/tutorials">Tutorials</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" (click)="isCollapsed = !isCollapsed" href="/student">Dashboard</a>
             </li>
         </ul>
         <div class="form-inline my-2 my-lg-0">

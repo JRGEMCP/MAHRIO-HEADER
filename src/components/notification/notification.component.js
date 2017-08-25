@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import template from './notification.template.html';
 import style from './notification.style.scss';
 
@@ -7,7 +7,8 @@ import { NotificationService } from '../../services';
 @Component({
   selector: 'notification',
   template,
-  styles: [style]
+  styles: [style],
+  encapsulation: ViewEncapsulation.None
 })
 
 export class NotificationComponent {
@@ -19,6 +20,10 @@ export class NotificationComponent {
     this.notice = NotificationService;
     this.notices = this.notice.getAll();
   }
-
+  timedCollapse(){
+    setTimeout( () => {
+      this.notifications = false;
+    }, 150);
+  }
 
 }

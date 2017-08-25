@@ -1,4 +1,4 @@
-import { Component, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, ViewEncapsulation } from '@angular/core';
 
 import template from './header.template.html';
 import style from './header.style.scss';
@@ -8,7 +8,8 @@ import style from './header.style.scss';
   selector: 'header-as-a-service',
   template,
   styles: [style],
-  outputs: []
+  outputs: [],
+  encapsulation: ViewEncapsulation.None
 })
 
 export class HeaderComponent {

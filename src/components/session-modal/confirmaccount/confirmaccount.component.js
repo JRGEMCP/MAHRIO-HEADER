@@ -1,5 +1,5 @@
 import { Component, EventEmitter } from '@angular/core';
-import template from './confirm-account.template.html';
+import template from './confirmaccount.template.html';
 
 @Component({
   selector: 'confirm-account',
