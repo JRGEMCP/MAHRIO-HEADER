@@ -46,7 +46,7 @@ export class SessionComponent {
         .then(res => {
           this.loading = false;
           this.account = true;
-          this.auth.emit(true); console.log( res );
+          this.auth.emit(this.authToken);
           if( !res.confirmed ) { this.notice.addNotice( new Notice({modal: this.ngbModal, component: SessionModalComponent, state: 'confirm-account-retry'}) ); }
         }, err => {
           delete localStorage.Authorization;
@@ -61,8 +61,8 @@ export class SessionComponent {
     this.modalRef.componentInstance.state = state;
     this.modalRef.componentInstance.token = token || null;
     this.modalRef.result
-      .then( (result) => {
-        if( result ) { this.account = result; this.auth.emit(true); }
+      .then( (token) => {
+        if( token ) { this.account = true; this.auth.emit(token); }
         delete this.isCollapsed;
       }, (reason) => {  });
   }
@@ -73,7 +73,7 @@ export class SessionComponent {
         this.account = false;
         delete localStorage.Authorization;
         delete this.isCollapsed;
-        this.auth.emit(false);
+        this.auth.emit(null);
         this.notice.clearAll();
       }, err => { });
   }

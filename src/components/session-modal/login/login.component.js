@@ -40,7 +40,7 @@ export class LoginComponent {
       .subscribe( res => {
         this.session.setToken( res.headers.get('authorization') );
         localStorage.Authorization = res.headers.get('authorization');
-        this.access.emit( );
+        this.access.emit( res.headers.get('authorization') );
         if( !res.json().confirmed ) { this.notice.addNotice( new Notice({modal: this.ngbModal, component: SessionModalComponent, state: 'confirm-account-retry'}) ); }
       }, err => {
           console.log('err: '+err)

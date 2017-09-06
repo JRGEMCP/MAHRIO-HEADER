@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class OauthSessionService {
@@ -12,12 +14,11 @@ export class OauthSessionService {
   }
   setToken( token ) {
     this.token = token;
-    console.log( token );
   }
   user(token){
     this.token = token;
     let options = new RequestOptions({ headers: new Headers({'Authorization': this.token}) });
-    return this.http.get('/api/session/user', options)
+    return this.http.get( '/api/session/user', options)
       .map(res => res.json() || {})
       .toPromise();
   }

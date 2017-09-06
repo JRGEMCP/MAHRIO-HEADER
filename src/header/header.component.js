@@ -8,16 +8,17 @@ import style from './header.style.scss';
   selector: 'header-as-a-service',
   template,
   styles: [style],
-  outputs: [],
+  outputs: ['auth'],
   encapsulation: ViewEncapsulation.None
 })
 
 export class HeaderComponent {
 
   constructor( ){
-
+    this.auth = new EventEmitter();
   }
-  auth( state ){
-    this.isLoggedIn = state;
+  proxyAuth( state ){
+    this.isLoggedIn = state ? true : false;
+    this.auth.emit(state);
   }
 }

@@ -23,8 +23,9 @@ export class SessionModalComponent {
   goTo( state ) {
     this.state = state;
   }
-  auth(){
-    this.activeModal.close(true);
+  auth( token ){
+    this.activeModal.close(token);
+    window.location.href = '/student/';
   }
 
 }

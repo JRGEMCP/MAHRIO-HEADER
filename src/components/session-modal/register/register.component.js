@@ -34,7 +34,7 @@ export class RegisterComponent {
       .subscribe( res => {
         this.session.setToken( res.headers.get('authorization') );
         localStorage.Authorization = res.headers.get('authorization');
-        this.access.emit( );
+        this.access.emit( res.headers.get('authorization') );
         this.notice.addNotice( new Notice() );
       }, err => {
         console.log('err: '+err)

@@ -1,5 +1,7 @@
 module.exports = function( server ) {
   require('../models/user');
-  require('./sessionApi')(server);
+  require('../models/article');
+  require('./session/sessionApi')(server);
+  require('./articles/articles-api')(server);
 };
 

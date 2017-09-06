@@ -6,11 +6,11 @@
 </div>
 <div class="modal-body">
     <div [ngbCollapse]="state !== 'login'">
-        <login (go)="goTo($event)" (access)="auth()"></login>
+        <login (go)="goTo($event)" (access)="auth($event)"></login>
     </div>
 
     <div [ngbCollapse]="state !== 'register'">
-        <register (go)="goTo($event)" (access)="auth()"></register>
+        <register (go)="goTo($event)" (access)="auth($event)"></register>
     </div>
 
     <div [ngbCollapse]="state !== 'recover-password'">
@@ -18,7 +18,7 @@
     </div>
 
     <div [ngbCollapse]="state !== 'recover-password-update'">
-        <recover-password-update [token]="token" (access)="auth()"></recover-password-update>
+        <recover-password-update [token]="token" (access)="auth($event)"></recover-password-update>
     </div>
 
     <div [ngbCollapse]="state !== 'confirm-account'">

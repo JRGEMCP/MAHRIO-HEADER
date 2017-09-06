@@ -23,7 +23,7 @@ export class RecoverPasswordUpdateComponent {
       .subscribe( res => {
         this.session.setToken( res.headers.get('authorization') );
         localStorage.Authorization = res.headers.get('authorization');
-        this.access.emit( );
+        this.access.emit( res.headers.get('authorization') );
       })
   }
 }
