@@ -1,21 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
+import { OauthSessionService } from './index';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class ArticleService{
   static get parameters(){
-    return [Http];
+    return [Http, OauthSessionService];
   }
-  constructor(http){
+  constructor(http, oauth){
     this.http = http;
-    this.token = null;
+    this.token = new ReplaySubject(0);
+    this._token = null;
+    let _subs = oauth.authToken.subscribe( token => {
+      this._token = token;
+      this.token.next( token );
+      _subs.unsubscribe();
+    });
     this.articles = [];
     this.article;
-  }
-  setToken( token ) {
-    this.token = token;
   }
   get currentArticle(){
     return this.article;
@@ -23,16 +29,29 @@ export class ArticleService{
   set currentArticle( article ){
     this.article = article;
   }
-  gett( link ){
-    return this.http.get('/api/articles' + (link ? `/${link}` : ''))
+  gett( link, auth ){
+    let options = new RequestOptions({});
+    if( this._token && auth ) {
+      options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) })
+    }
+    return this.http.get('/api/articles' + (link ? `/${link}` : ''), options)
       .map( res => res.json())
-      .toPromise();
+      .catch( this.handleError );
   }
-  post( payload ) {
-    let options = new RequestOptions({ headers: new Headers({'Authorization': this.token}) });
+  post( payload ) { console.log(this._token);
+    let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) });
     return this.http.post('/api/articles', {article: payload}, options)
       .map(res => res.json())
       .toPromise();
   }
+  put( payload ) {
+    let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) });
+    return this.http.put(`/api/articles/${payload._id}`, {article: payload}, options)
+      .map(res => res.json())
+      .toPromise();
+  }
 
+  handleError(error){
+    return Observable.throw({msg: 'Error', obj: error});
+  }
 }

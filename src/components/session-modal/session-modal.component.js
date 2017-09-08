@@ -25,7 +25,7 @@ export class SessionModalComponent {
   }
   auth( token ){
     this.activeModal.close(token);
-    window.location.href = '/student/';
+    window.location.href = '/dashboard/';
   }
 
 }

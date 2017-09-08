@@ -26,7 +26,7 @@ module.exports = {
         });
     } else {
       Article
-        .find( {} )
+        .find( req.auth.isAuthenticated ? {creator: req.auth.credentials.id} : {} )
         .sort( {created: -1})
         .populate('sections')
         .exec( function(err, articles){
@@ -35,7 +35,6 @@ module.exports = {
           return rep({articles: articles});
         });
     }
-
   },
   create: function(req, rep){
     if(req.payload.article){
@@ -49,6 +48,16 @@ module.exports = {
     });
   },
   update: function(req, rep){
+    if( !req.payload.article) {
+      return rep(Boom.badRequest());
+    }
+
+    Article.update({_id: req.params.id}, req.payload.article, {multi: false}, function(err,article){
+      if( err ) { return rep( Boom.badRequest(err) ); }
+
+      return rep({article: article});
+    })
+
 
   },
   remove: function(req, rep){

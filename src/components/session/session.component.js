@@ -44,6 +44,7 @@ export class SessionComponent {
       this.loading = true;
       this.session.user(this.authToken)
         .then(res => {
+          this.session.setToken(this.authToken);
           this.loading = false;
           this.account = true;
           this.auth.emit(this.authToken);
@@ -51,7 +52,10 @@ export class SessionComponent {
         }, err => {
           delete localStorage.Authorization;
           this.loading = false;
+          this.auth.emit(false);
         });
+    } else {
+      this.auth.emit(false);
     }
   }
   sessionInit( state, token ){
@@ -63,6 +67,7 @@ export class SessionComponent {
     this.modalRef.result
       .then( (token) => {
         if( token ) { this.account = true; this.auth.emit(token); }
+        this.session.setToken( this.authToken );
         delete this.isCollapsed;
       }, (reason) => {  });
   }
