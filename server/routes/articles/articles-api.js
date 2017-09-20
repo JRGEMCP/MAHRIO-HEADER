@@ -1,6 +1,7 @@
 'use strict';
 
 var ArticleCtrl = require('./articles-functions');
+var SectionCtrl = require('./section-functions');
 
 module.exports = function( server ) {
   [
@@ -24,10 +25,26 @@ module.exports = function( server ) {
       }
     },
     {
+      method: 'POST',
+      path: '/api/articles/{id}/sections',
+      config: {
+        handler: SectionCtrl.create,
+        auth: 'simple'
+      }
+    },
+    {
       method: 'PUT',
       path: '/api/articles/{id?}',
       config: {
         handler: ArticleCtrl.update,
+        auth: 'simple'
+      }
+    },
+    {
+      method: 'PUT',
+      path: '/api/articles/{id}/sections/{sid?}',
+      config: {
+        handler: SectionCtrl.update,
         auth: 'simple'
       }
     },
