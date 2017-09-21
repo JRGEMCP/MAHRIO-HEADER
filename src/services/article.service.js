@@ -29,12 +29,12 @@ export class ArticleService{
   set currentArticle( article ){
     this.article = article;
   }
-  gett( link, auth ){
+  gett( link, auth, id ){
     let options = new RequestOptions({});
     if( this._token && auth ) {
       options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) })
     }
-    return this.http.get('/api/articles' + (link ? `/${link}` : ''), options)
+    return this.http.get('/api/articles' + (link ? `/${link}` : '')+(!link && id ? '?id='+id:''), options)
       .map( res => res.json())
       .catch( this.handleError );
   }

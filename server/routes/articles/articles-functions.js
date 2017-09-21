@@ -25,8 +25,12 @@ module.exports = {
           return rep({article: article});
         });
     } else {
+      var find = req.auth.isAuthenticated ? {creator: req.auth.credentials.id} : {};
+      if( req.query.id ) {
+        find._id = req.query.id
+      }
       Article
-        .find( req.auth.isAuthenticated ? {creator: req.auth.credentials.id} : {} )
+        .find( find )
         .sort( {created: -1})
         .populate('sections')
         .exec( function(err, articles){
