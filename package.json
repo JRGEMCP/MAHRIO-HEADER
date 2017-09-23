@@ -11,7 +11,7 @@
     "dev": "NODE_ENV='dev' webpack --watch --profile --bail",
     "prebuild": "npm update",
     "build": "NODE_ENV='prod' webpack --profile --bail",
-    "link": "npm install boom bluebird parent-require socket.io && npm uninstall mongoose"
+    "link": "npm install boom bluebird parent-require socket.io socket.io-client && npm uninstall mongoose"
   },
   "license": "MIT",
   "engines": {
