@@ -11,6 +11,8 @@ import { UpdatePasswordComponent } from './session-modal/update-password/update-
 
 import { NotificationComponent } from './notification/notification.component';
 
+import { HeadingComponent } from './heading/heading.component';
+
 export {
   SessionComponent,
 
@@ -24,6 +26,8 @@ export {
   UpdatePasswordComponent,
 
   NotificationComponent,
+
+  HeadingComponent,
 };
 
 export const Components = [
@@ -39,4 +43,6 @@ export const Components = [
   UpdatePasswordComponent,
 
   NotificationComponent,
+
+  HeadingComponent,
 ];

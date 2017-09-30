@@ -6,8 +6,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { HeaderComponent } from './header/header.component';
-import { Components, SessionModalComponent  } from './components/index';
-import { Services } from './services'
+import { Components, HeadingComponent, SessionModalComponent  } from './components/index';
+import { Services } from './services';
 
 
 @NgModule({
@@ -26,6 +26,7 @@ import { Services } from './services'
   ],
   exports: [
     HeaderComponent,
+    HeadingComponent,
   ],
   entryComponents: [
     SessionModalComponent
