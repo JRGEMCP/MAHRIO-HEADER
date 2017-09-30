@@ -12,6 +12,9 @@ import { UpdatePasswordComponent } from './session-modal/update-password/update-
 import { NotificationComponent } from './notification/notification.component';
 
 import { HeadingComponent } from './heading/heading.component';
+import { FiltersComponent } from './filters/filters.component';
+import { ActiveFiltersComponent } from './filters-active/active-filters.component';
+import { PaginationComponent } from './pagination/pagination.component';
 
 export {
   SessionComponent,
@@ -28,6 +31,10 @@ export {
   NotificationComponent,
 
   HeadingComponent,
+  FiltersComponent,
+  ActiveFiltersComponent,
+  PaginationComponent,
+
 };
 
 export const Components = [
@@ -45,4 +52,7 @@ export const Components = [
   NotificationComponent,
 
   HeadingComponent,
+  FiltersComponent,
+  ActiveFiltersComponent,
+  PaginationComponent,
 ];

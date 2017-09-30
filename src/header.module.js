@@ -6,7 +6,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { HeaderComponent } from './header/header.component';
-import { Components, HeadingComponent, SessionModalComponent  } from './components/index';
+import { Components,
+  HeadingComponent,
+  FiltersComponent,
+  ActiveFiltersComponent,
+  PaginationComponent,
+  SessionModalComponent  } from './components/index';
 import { Services } from './services';
 
 
@@ -27,6 +32,9 @@ import { Services } from './services';
   exports: [
     HeaderComponent,
     HeadingComponent,
+    FiltersComponent,
+    ActiveFiltersComponent,
+    PaginationComponent,
   ],
   entryComponents: [
     SessionModalComponent
