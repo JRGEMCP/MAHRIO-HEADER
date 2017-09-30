@@ -9,6 +9,7 @@ import { HeaderComponent } from './header/header.component';
 import { Components,
   HeadingComponent,
   FiltersComponent,
+  ActiveFiltersComponent,
   SessionModalComponent  } from './components/index';
 import { Services } from './services';
 
@@ -31,6 +32,7 @@ import { Services } from './services';
     HeaderComponent,
     HeadingComponent,
     FiltersComponent,
+    ActiveFiltersComponent,
   ],
   entryComponents: [
     SessionModalComponent

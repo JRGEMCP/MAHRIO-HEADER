@@ -1,0 +1,15 @@
+.filters {
+  & > span {
+    margin-right: 5px;
+  }
+  list-style: none;
+  li {
+    float: left;
+    background: #e3e3e3;
+    border-radius: 10px;
+    i {
+      color: #990000;
+    }
+  }
+  border-bottom: 1px solid #e3e3e3;
+}

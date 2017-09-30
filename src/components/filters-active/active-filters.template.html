@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="container mt-3">
+        <nav class="pl-2 navbar navbar-toggleable-md filters">
+        <span class="navbar-text">
+            100 Tutorials in
+        </span>
+
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item" *ngFor="let filtr of filters">
+                    <button class="btn">
+                        {{filtr}}
+                        <i class="fa fa-close"></i>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
