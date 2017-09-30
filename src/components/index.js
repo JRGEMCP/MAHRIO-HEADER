@@ -14,6 +14,7 @@ import { NotificationComponent } from './notification/notification.component';
 import { HeadingComponent } from './heading/heading.component';
 import { FiltersComponent } from './filters/filters.component';
 import { ActiveFiltersComponent } from './filters-active/active-filters.component';
+import { PaginationComponent } from './pagination/pagination.component';
 
 export {
   SessionComponent,
@@ -32,6 +33,7 @@ export {
   HeadingComponent,
   FiltersComponent,
   ActiveFiltersComponent,
+  PaginationComponent,
 
 };
 
@@ -52,4 +54,5 @@ export const Components = [
   HeadingComponent,
   FiltersComponent,
   ActiveFiltersComponent,
+  PaginationComponent,
 ];

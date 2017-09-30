@@ -10,6 +10,7 @@ import { Components,
   HeadingComponent,
   FiltersComponent,
   ActiveFiltersComponent,
+  PaginationComponent,
   SessionModalComponent  } from './components/index';
 import { Services } from './services';
 
@@ -33,6 +34,7 @@ import { Services } from './services';
     HeadingComponent,
     FiltersComponent,
     ActiveFiltersComponent,
+    PaginationComponent,
   ],
   entryComponents: [
     SessionModalComponent
