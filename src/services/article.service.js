@@ -18,7 +18,6 @@ export class ArticleService{
     let _subs = oauth.authToken.subscribe( token => {
       this._token = token;
       this.token.next( token );
-      _subs.unsubscribe();
     });
     this.articles = [];
     this.article;

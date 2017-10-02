@@ -1,29 +1,26 @@
-<div class="container pt-2 pb-2">
+<div class="container pt-3 pb-3">
     <nav class="d-flex w-100 justify-content-between">
-        <div class="backwards">
-            <button class="btn">
+        <div class="backwards p-1">
+            <button class="btn pointer" (click)="changes('first')" [disabled]="page.isFirst">
                 First
             </button>
-            <button class="btn">
+            <button class="btn pointer" (click)="changes('prev')" [disabled]="!page.hasPrev">
                 Prev
             </button>
         </div>
 
-        <ul class="pagination">
-            <li class="page-item pl-1 active">
-                <a class="page-link" href="#">1</a>
+        <ul class="pagination m-0">
+            <li class="page-item p-1" [ngClass]="{'active': page.isPage(index - 1)}" *ngFor="let index of page.pageNumbers">
+                <button class="page-link" [disabled]="page.isPage(index - 1)"
+                    (click)="changes('page', index - 1)">{{index}}</button>
             </li>
-            <li class="page-item pl-1"><a class="page-link" href="#">2</a></li>
-            <li class="page-item pl-1"><a class="page-link" href="#">3</a></li>
-            <li class="page-item pl-1"><a class="page-link" href="#">4</a></li>
-            <li class="page-item pl-1"><a class="page-link" href="#">5</a></li>
         </ul>
 
-        <div class="forward">
-            <button class="btn btn-light">
+        <div class="forward p-1">
+            <button class="btn pointer" (click)="changes('next')" [disabled]="!page.hasNext">
                 Next
             </button>
-            <button class="btn btn-light">
+            <button class="btn pointer" (click)="changes('last')" [disabled]="page.isLast">
                 Last
             </button>
         </div>

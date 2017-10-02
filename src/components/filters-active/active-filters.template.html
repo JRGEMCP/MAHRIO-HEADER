@@ -8,19 +8,19 @@
 
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item" *ngFor="let filtr of filters">
-                        <button class="btn">
+                        <span class="btn">
                             {{filtr}}
-                            <i class="fa fa-close"></i>
-                        </button>
+                            <i class="fa fa-close pointer"></i>
+                        </span>
                     </li>
                 </ul>
             </nav>
             <div class="p-2">
-                <button class="btn btn-link">
+                <button class="btn btn-link pointer" *ngIf="!page.isFirst" (click)="changes('prev')">
                     <i class="fa fa-angle-left"></i>
                     Previous
                 </button>
-                <button class="btn btn-link pl-0">
+                <button class="btn btn-link pl-0 pointer" *ngIf="!page.isLast" (click)="changes('next')">
                     Next
                     <i class="fa fa-angle-right pl-1"></i>
                 </button>
