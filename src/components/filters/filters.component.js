@@ -11,6 +11,6 @@ import style from './filters.style.scss';
 
 export class FiltersComponent {
   constructor(){
-
+    this.favorites = false;
   }
 }
