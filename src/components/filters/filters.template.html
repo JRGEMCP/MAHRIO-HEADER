@@ -18,8 +18,16 @@
             <form class="form-inline">
                 <input class="form-control mr-sm-2" type="text"
                        placeholder="Filter by keyword"
-                       aria-label="Filter by keyword">
-                <i class="fa fa-search"></i>
+                       aria-label="Filter by keyword"
+                       #textFilter
+                       (keyup)="onTextFilterChange(textFilter.value)"
+                >
+                <button (click)="clearTextFilter()" [disabled]="!textFilter.value.length">
+                    <i class="fa"
+                       [ngClass]="{'fa-search': !textFilter.value.length, 'fa-close': textFilter.value.length}"
+                    ></i>
+                </button>
+
             </form>
         </div>
     </div>
