@@ -3,6 +3,8 @@ import { Component, EventEmitter, ViewChild } from '@angular/core';
 import template from './filters.template.html';
 import style from './filters.style.scss';
 
+import { AccessControlService } from '../../services';
+
 @Component({
   selector: 'filters',
   template,
@@ -14,7 +16,13 @@ import style from './filters.style.scss';
 })
 
 export class FiltersComponent {
-  constructor(){
+  static get parameters(){
+    return [AccessControlService];
+  }
+  constructor( access ){
+    access.token.subscribe( token => {
+      this.isLoggedIn = !!token
+    });
     this.favorites = false;
     this.editingTextFilter = false;
     this.textFilter = new EventEmitter();
