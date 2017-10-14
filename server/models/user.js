@@ -26,7 +26,8 @@ var crypto = require('crypto')
   profile:        {type: mongoose.Schema.Types.ObjectId, ref: 'Profile' },
   disabled:       {type: Boolean},
   stripeId:       {type: String, default: null},
-  deviceToken:    {type: String, default: null}
+  deviceToken:    {type: String, default: null},
+  favorites: [{type: mongoose.Schema.Types.ObjectId, ref: 'Article', unique: true}]
 });
 
 function createSalt () { return crypto.randomBytes(128).toString('base64'); }

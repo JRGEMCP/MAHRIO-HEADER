@@ -2,6 +2,7 @@
 
 var ArticleCtrl = require('./articles-functions');
 var SectionCtrl = require('./section-functions');
+var FavoriteCtrl = require('./favorite-functions');
 
 module.exports = function( server ) {
   [
@@ -34,7 +35,15 @@ module.exports = function( server ) {
     },
     {
       method: 'PUT',
-      path: '/api/articles/{id?}',
+      path: '/api/articles/{id}/favorite',
+      config: {
+        handler: FavoriteCtrl.update,
+        auth: 'simple'
+      }
+    },
+    {
+      method: 'PUT',
+      path: '/api/articles/{id}',
       config: {
         handler: ArticleCtrl.update,
         auth: 'simple'
@@ -50,7 +59,15 @@ module.exports = function( server ) {
     },
     {
       method: 'DELETE',
-      path: '/api/articles/{id?}',
+      path: '/api/articles/{id}/favorite',
+      config: {
+        handler: FavoriteCtrl.delete,
+        auth: 'simple'
+      }
+    },
+    {
+      method: 'DELETE',
+      path: '/api/articles/{id}',
       config: {
         handler: ArticleCtrl.remove,
         auth: 'simple'
