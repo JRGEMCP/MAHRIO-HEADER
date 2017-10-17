@@ -3,17 +3,17 @@
         <div class="d-flex w-100 justify-content-between filters">
             <nav class="p-2 navbar navbar-toggleable-md">
                 <span class="navbar-text pr-2">
-                    {{page.items.length}} Tutorials in
+                    {{page.items.length}} Tutorials <!--in-->
                 </span>
 
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item" *ngFor="let filtr of filters">
-                        <span class="btn">
-                            {{filtr}}
-                            <i class="fa fa-close pointer"></i>
-                        </span>
-                    </li>
-                </ul>
+                <!--<ul class="navbar-nav mr-auto   collapse">-->
+                    <!--<li class="nav-item" *ngFor="let filtr of filters">-->
+                        <!--<span class="btn">-->
+                            <!--{{filtr}}-->
+                            <!--<i class="fa fa-close pointer"></i>-->
+                        <!--</span>-->
+                    <!--</li>-->
+                <!--</ul>-->
             </nav>
             <div class="p-2">
                 <button class="btn btn-link pointer" *ngIf="!page.isFirst" (click)="changes('prev')">
