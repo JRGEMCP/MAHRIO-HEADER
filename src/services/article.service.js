@@ -37,6 +37,24 @@ export class ArticleService{
       .map( res => res.json())
       .catch( this.handleError );
   }
+  getFavorites(){
+    let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) })
+    return this.http.get('/api/articles/favorites', options)
+      .map( res => res.json())
+      .catch( this.handleError );
+  }
+  setFavorite( id ){
+    let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) })
+    return this.http.put(`/api/articles/${id}/favorite`, {}, options)
+        .map( res => res.json())
+        .catch( this.handleError );
+  }
+  removeFavorite( id ){
+    let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) })
+    return this.http.delete(`/api/articles/${id}/favorite`, options)
+        .map( res => res.json())
+        .catch( this.handleError );
+  }
   post( payload ) { console.log(this._token);
     let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) });
     return this.http.post('/api/articles', {article: payload}, options)

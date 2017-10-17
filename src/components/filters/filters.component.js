@@ -9,7 +9,7 @@ import { AccessControlService } from '../../services';
   selector: 'filters',
   template,
   styles: [style],
-  outputs: ['textFilter'],
+  outputs: ['textFilter', 'favorites'],
   queries: {
     textFilterEl: new ViewChild('textFilter')
   }
@@ -25,6 +25,7 @@ export class FiltersComponent {
     });
     this.favorites = false;
     this.editingTextFilter = false;
+    this.favorites = new EventEmitter();
     this.textFilter = new EventEmitter();
     this.doneEditing = new EventEmitter().debounceTime(350);
     this.doneEditing.subscribe( () => {
@@ -51,5 +52,8 @@ export class FiltersComponent {
   clearTextFilter(){
     this.textFilterEl.nativeElement.value = '';
     this.onTextFilterChange('');
+  }
+  notify( val ){
+    this.favorites.emit( val );
   }
 }

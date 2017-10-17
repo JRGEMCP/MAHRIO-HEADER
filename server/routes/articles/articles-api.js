@@ -18,6 +18,16 @@ module.exports = function( server ) {
       }
     },
     {
+      method: 'GET',
+      path: '/api/articles/favorites',
+      config: {
+        handler: FavoriteCtrl.get,
+        auth: {
+          strategy: 'simple'
+        }
+      }
+    },
+    {
       method: 'POST',
       path: '/api/articles',
       config: {

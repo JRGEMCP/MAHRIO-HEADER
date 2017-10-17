@@ -2,17 +2,17 @@
     <div class="container">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item" *ngIf="isLoggedIn">
-                <a class="nav-link">
-                    <i class="fa fa-star" (click)="fav = !fav" [ngClass]="{'active': fav}"></i>
+                <a class="nav-link" (click)="fav = !fav; notify(fav)">
+                    <i class="fa fa-star" [ngClass]="{'active': fav}"></i>
                     Tutorials
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" (click)="filtersPane = !filtersPane">
-                    Filter
-                    <i class="fa fa-chevron-circle-right"></i>
-                </a>
-            </li>
+            <!--<li class="nav-item   collapse">-->
+                <!--<a class="nav-link" (click)="filtersPane = !filtersPane">-->
+                    <!--Filter-->
+                    <!--<i class="fa fa-chevron-circle-right"></i>-->
+                <!--</a>-->
+            <!--</li>-->
         </ul>
         <div class="form-inline my-2 my-lg-0">
             <form class="form-inline">
