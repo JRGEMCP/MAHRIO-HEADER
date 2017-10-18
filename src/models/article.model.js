@@ -9,10 +9,17 @@ export class Article {
   }
 
   get id(){ return this._id; }
+
   get title(){ return this._title; }
+  set title( val ){ this._title = val; }
+
   get link(){ return this._link; }
-  get created(){ return this._created; }
+  set link( val ){ this._link = val; }
+
   get deck(){ return this._deck; }
+  set deck( val ){ this._deck = val; }
+
+  get created(){ return this._created; }
 
   get favorite(){ return this._favorite; }
   set favorite( val ){ return this._favorite = val; }
@@ -27,5 +34,13 @@ export class Article {
     newInstance._deck = payload.deck;
 
     return newInstance;
+  }
+
+  get summary(){
+    return {
+      title: this._title,
+      link: this._link,
+      deck: this._deck
+    };
   }
 }

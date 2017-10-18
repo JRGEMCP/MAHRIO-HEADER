@@ -72,7 +72,7 @@ module.exports = {
       reply(true);
     });
   },
-  register: function (request, reply) {
+  register: function (request, reply, server) {
     if (request.auth.isAuthenticated) { return reply(Boom.badRequest('You Logged In')); }
 
     if( !request.payload.user ){
@@ -80,11 +80,15 @@ module.exports = {
     }
     request.payload.user.access = ['authorized'];
     User.create( request.payload.user).then(function(user){
+
+        var confirmAccountLink = server.hostDomain + '/?confirm=' + user.resetPasswordToken;
+        server.mailer( {to: user.email, subject: 'Activate Account', html: confirmAccountLink});
+
         reply({access: user.access, confirmed: false })
           .header('Authorization', 'Bearer ' + user.authorizationToken)
           .header('Access-Control-Expose-Headers', 'authorization');
       }).catch(function(err){
-      reply( Boom.badRequest() ); // user already in system?
+        reply( Boom.badRequest() ); // user already in system?
     });
   },
   resendConfirmEmail: function ( request, reply){

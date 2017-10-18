@@ -63,7 +63,7 @@ export class ArticleService{
   }
   put( payload ) {
     let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) });
-    return this.http.put(`/api/articles/${payload._id}`, {article: payload}, options)
+    return this.http.put(`/api/articles/${payload._id}`, {article: payload.summary}, options)
       .map(res => res.json())
       .toPromise();
   }

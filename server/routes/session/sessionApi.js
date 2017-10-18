@@ -50,9 +50,9 @@ module.exports = function ( server ) {
       handler: function( request, reply ){
         switch( request.params.action ){
           case 'register':
-            return SessionCtrl.register(request, reply);
+            return SessionCtrl.register(request, reply, server);
           case 'resend-confirm-email':
-            return SessionCtrl.resendConfirmEmail( request, reply);
+            return SessionCtrl.resendConfirmEmail( request, reply, server);
           case 'confirm-account':
             return SessionCtrl.confirmAccount( request, reply);
           case 'login':
