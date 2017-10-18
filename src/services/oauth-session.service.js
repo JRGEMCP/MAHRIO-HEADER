@@ -55,6 +55,10 @@ export class OauthSessionService {
     return this.http.post(`/api/session/update-password`, {passwords: passwords},
       {headers: new Headers({'Authorization': this.token})}).toPromise();
   }
+  updateGithubToken( token ){
+    let options = new RequestOptions({ headers: new Headers({'Authorization': this.token}) })
+    return this.http.post(`/api/oauth/github`, {git: token}, options).toPromise();
+  }
   logout( all ){
     let action = all ? 'log-off-all-devices' : 'logout';
     return this.http.post(`/api/session/${action}`, {}, {headers: new Headers({'Authorization': this.token})});

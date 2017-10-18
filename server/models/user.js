@@ -27,6 +27,7 @@ var crypto = require('crypto')
   disabled:       {type: Boolean},
   stripeId:       {type: String, default: null},
   deviceToken:    {type: String, default: null},
+  githubToken:    {type: String, default: null},
   favorites: [{type: mongoose.Schema.Types.ObjectId, ref: 'Article', unique: true}]
 });
 
@@ -165,6 +166,17 @@ schema.statics.updatePassword = function(id, passwords, cb) {
     cb(true);
   });
 }
+schema.statics.updateGithub = function(id, git_token, cb){
+  this.findOne({ _id: id}, function (err, user) {
+    if (err || !user) { return cb(true); } //user does not exist
+
+    user.githubToken = git_token;
+    user.save(function(err){
+      if (err) { return cb(true); }
+      return cb(false);
+    })
+  });
+};
 schema.pre('save', function (next) {
   if (this.isNew) {
     this.salt = createSalt();

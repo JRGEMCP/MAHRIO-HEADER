@@ -14,6 +14,10 @@ var User = Mongoose.model('User'),
 
 module.exports = function ( server ) {
 
+  setTimeout( () => {
+    require('./oauth')( server );
+  }, 1000);
+
   server.auth.strategy('simple', 'bearer-access-token', {
     allowQueryToken: true,              // optional, true by default
     allowMultipleHeaders: false,        // optional, false by default

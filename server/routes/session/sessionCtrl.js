@@ -65,6 +65,13 @@ module.exports = {
       reply(true);
     });
   },
+  updateGithubToken: function( request, reply){
+    User.updateGithub(request.auth.credentials.id, request.payload.git, function(err){
+      if( err )  { return reply( Boom.badRequest()); }
+
+      reply(true);
+    });
+  },
   register: function (request, reply) {
     if (request.auth.isAuthenticated) { return reply(Boom.badRequest('You Logged In')); }
 
