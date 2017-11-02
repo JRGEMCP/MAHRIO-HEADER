@@ -1,6 +1,8 @@
 # MAHRIO-HEADER
 Shared Header Component
 
+Development version: **1.0.0** [![Build Status](https://travis-ci.org/JRGEMCP/MAHRIO-HEADER.svg?branch=master)](https://travis-ci.org/JRGEMCP/MAHRIO-HEADER)
+
 ## Get Started
 Download this repo using `git` and install its dependencies using `npm`.
 1. `git clone https://github.com/JRGEMCP/mahrio-header.git`
