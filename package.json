@@ -7,11 +7,12 @@
   },
   "version": "1.0.0",
   "scripts": {
-    "start": "npm run dev",
     "dev": "NODE_ENV='dev' webpack --watch --profile --bail",
-    "prebuild": "npm update",
     "build": "NODE_ENV='prod' webpack --profile --bail",
-    "link": "npm install boom bluebird parent-require socket.io socket.io-client && npm uninstall mongoose"
+    "link": "npm install boom bluebird parent-require socket.io socket.io-client && npm uninstall mongoose",
+    "prebuild": "npm update",
+    "start": "npm run dev",
+    "test": "npm run test"
   },
   "license": "MIT",
   "engines": {
