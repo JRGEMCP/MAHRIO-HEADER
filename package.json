@@ -12,7 +12,7 @@
     "link": "npm install boom bluebird parent-require socket.io socket.io-client && npm uninstall mongoose",
     "prebuild": "npm update",
     "start": "npm run dev",
-    "test": "npm run test"
+    "test": "npm run build"
   },
   "license": "MIT",
   "engines": {
