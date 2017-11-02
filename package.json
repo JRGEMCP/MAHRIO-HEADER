@@ -7,8 +7,8 @@
   },
   "version": "1.0.0",
   "scripts": {
-    "dev": "NODE_ENV='dev' webpack --watch --profile --bail",
     "build": "NODE_ENV='prod' webpack --profile --bail",
+    "dev": "NODE_ENV='dev' webpack --watch --profile --bail",
     "link": "npm install boom bluebird parent-require socket.io socket.io-client && npm uninstall mongoose",
     "prebuild": "npm update",
     "start": "npm run dev",
