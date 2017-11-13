@@ -23,8 +23,8 @@ export class SessionModalComponent {
   goTo( state ) {
     this.state = state;
   }
-  auth( token ){
-    this.activeModal.close(token);
+  auth( user ){
+    this.activeModal.close( user );
     window.location.href = '/dashboard/';
   }
 

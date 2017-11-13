@@ -39,7 +39,31 @@ module.exports = function( server ) {
       method: 'POST',
       path: '/api/articles/{id}/sections',
       config: {
-        handler: SectionCtrl.create,
+        handler: SectionCtrl.createMany,
+        auth: 'simple'
+      }
+    },
+    {
+      method: 'PUT',
+      path: '/api/articles/{id}/sections/repo',
+      config: {
+        handler: require('./github-createFilesSync'),
+        auth: 'simple'
+      }
+    },
+    {
+      method: 'PUT',
+      path: '/api/articles/{id}/repo',
+      config: {
+        handler: require('./github-createRepo'),
+        auth: 'simple'
+      }
+    },
+    {
+      method: 'PUT',
+      path: '/api/articles/{id}/collaboration',
+      config: {
+        handler: require('./github-addCollaborator'),
         auth: 'simple'
       }
     },
@@ -61,9 +85,25 @@ module.exports = function( server ) {
     },
     {
       method: 'PUT',
-      path: '/api/articles/{id}/sections/{sid?}',
+      path: '/api/articles/{id}/sections',
+      config: {
+        handler: SectionCtrl.updateMany,
+        auth: 'simple'
+      }
+    },
+    {
+      method: 'PUT',
+      path: '/api/articles/{id}/sections/{sid}',
       config: {
         handler: SectionCtrl.update,
+        auth: 'simple'
+      }
+    },
+    {
+      method: 'DELETE',
+      path: '/api/articles/{id}/section/{secId}',
+      config: {
+        handler: SectionCtrl.remove,
         auth: 'simple'
       }
     },

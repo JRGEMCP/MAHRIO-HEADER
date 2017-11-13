@@ -11,6 +11,8 @@ import { UpdatePasswordComponent } from './session-modal/update-password/update-
 
 import { NotificationComponent } from './notification/notification.component';
 
+import { MahrioMediaComponent } from './media/media.component';
+
 import { HeadingComponent } from './heading/heading.component';
 import { FiltersComponent } from './filters/filters.component';
 import { ActiveFiltersComponent } from './filters-active/active-filters.component';
@@ -29,6 +31,7 @@ export {
   UpdatePasswordComponent,
 
   NotificationComponent,
+  MahrioMediaComponent,
 
   HeadingComponent,
   FiltersComponent,
@@ -50,6 +53,7 @@ export const Components = [
   UpdatePasswordComponent,
 
   NotificationComponent,
+  MahrioMediaComponent,
 
   HeadingComponent,
   FiltersComponent,

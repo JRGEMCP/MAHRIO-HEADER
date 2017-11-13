@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class ArticleService{
+export class ArticleService {
   static get parameters(){
     return [Http, OauthSessionService];
   }
@@ -37,25 +37,7 @@ export class ArticleService{
       .map( res => res.json())
       .catch( this.handleError );
   }
-  getFavorites(){
-    let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) })
-    return this.http.get('/api/articles/favorites', options)
-      .map( res => res.json())
-      .catch( this.handleError );
-  }
-  setFavorite( id ){
-    let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) })
-    return this.http.put(`/api/articles/${id}/favorite`, {}, options)
-        .map( res => res.json())
-        .catch( this.handleError );
-  }
-  removeFavorite( id ){
-    let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) })
-    return this.http.delete(`/api/articles/${id}/favorite`, options)
-        .map( res => res.json())
-        .catch( this.handleError );
-  }
-  post( payload ) { console.log(this._token);
+  post( payload ) {
     let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) });
     return this.http.post('/api/articles', {article: payload}, options)
       .map(res => res.json())
@@ -67,6 +49,43 @@ export class ArticleService{
       .map(res => res.json())
       .toPromise();
   }
+  createRepo( id, name, description ){
+    let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) });
+    return this.http.put(`/api/articles/${id}/repo`, {repo: {name: name, description: description}}, options)
+        .map(res => res.json())
+        .toPromise();
+  }
+  createSections( id, payload ){
+    let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) });
+    return this.http.post(`/api/articles/${id}/sections`, {sections: payload}, options)
+        .map(res => res.json())
+        .toPromise();
+  }
+  createSectionFiles( id, payload ){
+    let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) });
+    return this.http.put(`/api/articles/${id}/sections/repo`, {sections: payload}, options)
+        .map(res => res.json())
+        .toPromise();
+  }
+  saveSections( id, payload){
+    let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) });
+    return this.http.put(`/api/articles/${id}/sections`, {sections: payload.map((pay) => pay.update) }, options)
+        .map(res => res.json())
+        .toPromise();
+  }
+  updateSections( id, payload ){
+    let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) });
+    return this.http.put(`/api/articles/${id}/sections`, {sections: payload}, options)
+        .map(res => res.json())
+        .toPromise();
+  }
+  removeSection( id, secId ){
+    let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) });
+    return this.http.delete(`/api/articles/${id}/section/${secId}`, options)
+        .map(res => res.json())
+        .toPromise();
+  }
+
 
   handleError(error){
     return Observable.throw({msg: 'Error', obj: error});

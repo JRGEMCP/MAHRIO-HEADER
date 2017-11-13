@@ -16,7 +16,7 @@ module.exports = function ( server ) {
 
   setTimeout( () => {
     require('./oauth')( server );
-  }, 1000);
+  }, 100);
 
   server.auth.strategy('simple', 'bearer-access-token', {
     allowQueryToken: true,              // optional, true by default
@@ -27,7 +27,14 @@ module.exports = function ( server ) {
         if (err || !user || typeof user === 'undefined') {
           return callback(null, false, { token: token });
         }
-        callback(null, true, { token: token, access: user.access, id: user.id, networks: user.networks, confirmed: user.confirmed });
+        callback(null, true, {
+          token: token,
+          email: user.email,
+          access: user.access,
+          id: user.id,
+          networks: user.networks,
+          confirmed: user.confirmed,
+          github: user.github});
       });
     }
   });
@@ -37,7 +44,9 @@ module.exports = function ( server ) {
     path: '/api/session/user',
     config: {
       handler: function(request, reply){
-        reply({confirmed: request.auth.credentials.confirmed});
+        request.auth.credentials.hasGit = request.auth.credentials.github && request.auth.credentials.github.token;
+
+        reply(request.auth.credentials);
       },
       auth: 'simple'
     }

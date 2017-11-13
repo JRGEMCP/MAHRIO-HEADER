@@ -31,10 +31,10 @@ export class RegisterComponent {
 
   register(){
     this._subs = this.session.register(this.user)
-      .subscribe( res => {
-        this.session.setToken( res.headers.get('authorization') );
-        localStorage.Authorization = res.headers.get('authorization');
-        this.access.emit( res.headers.get('authorization') );
+      .subscribe( user => {
+        localStorage.Authorization = user.token;
+        this.session.setSession( user );
+        this.access.emit( user );
         this.notice.addNotice( new Notice() );
       }, err => {
         console.log('err: '+err)
