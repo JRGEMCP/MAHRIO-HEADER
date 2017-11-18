@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - "6"
+env:
+  - NODE_ENV=TEST
+notifications:
+  email:
+    jesus.rocha@whichdegree.co
+    emcp@whichdegree.co
