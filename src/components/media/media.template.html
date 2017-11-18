@@ -1,0 +1,5 @@
+<div>
+    <button (click)="uploadFile()">Upload</button>
+    <input type="file" id="inputFile" (change)="fileChangeEvent($event)" placeholder="Upload file..." #fileUpload >
+    <img id="preview" [src]="src" alt="Preview">
+</div>

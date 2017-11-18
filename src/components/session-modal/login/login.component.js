@@ -37,11 +37,12 @@ export class LoginComponent {
 
   login(){
     this._subs = this.session.login(this.user)
-      .subscribe( res => {
-        this.session.setToken( res.headers.get('authorization') );
-        localStorage.Authorization = res.headers.get('authorization');
-        this.access.emit( res.headers.get('authorization') );
-        if( !res.json().confirmed ) { this.notice.addNotice( new Notice({modal: this.ngbModal, component: SessionModalComponent, state: 'confirm-account-retry'}) ); }
+      .subscribe( user => {
+
+        localStorage.Authorization = user.token;
+        this.session.setSession( user );
+        this.access.emit( user );
+        //if( !res.json().confirmed ) { this.notice.addNotice( new Notice({modal: this.ngbModal, component: SessionModalComponent, state: 'confirm-account-retry'}) ); }
       }, err => {
           console.log('err: '+err)
       });

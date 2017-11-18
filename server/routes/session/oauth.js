@@ -7,7 +7,8 @@ module.exports = function( server ) {
     config: {
       auth: 'github',
       handler: function(req, rep){
-        rep.redirect('/dashboard/github/'+req.auth.credentials.token);
+        console.log( req.auth.credentials );
+        rep.redirect('/dashboard/github/'+req.auth.credentials.profile.username+'/'+req.auth.credentials.token);
       }
     }
   });
@@ -17,7 +18,7 @@ module.exports = function( server ) {
     path: '/api/oauth/github',
     config: {
       auth: 'simple',
-      handler: SessionCtrl.updateGithubToken
+      handler: SessionCtrl.updateGithub
     }
   })
 };

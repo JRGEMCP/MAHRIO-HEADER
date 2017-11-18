@@ -12,7 +12,8 @@ var User = Mongoose.model('User'),
   Boom = require('boom'),
   crypto = require('crypto');
 
-Mongoose.Promise = require('bluebird');
+//Mongoose.Promise = require('bluebird');
+var GithubCtrl = require('../github/github-functions');
 
 module.exports = {
   login: function (request, reply) {
@@ -21,9 +22,8 @@ module.exports = {
     User.login(request.payload.email.toLowerCase(), request.payload.password, function (err, user) {
       if (err) { return reply(Boom.unauthorized(err)); }
 
-      reply({access: user.access, confirmed: user.confirmed})
-        .header('Authorization', 'Bearer ' + user.token)
-        .header('Access-Control-Expose-Headers', 'authorization');
+      user.token = 'Bearer ' + user.token;
+      reply( {user: user} );
     });
   },
   recoverPassword: function (request, reply){
@@ -50,9 +50,7 @@ module.exports = {
       User.changePassword( user, request.payload.password, function(err, user){
         if( err ) { return reply( Boom.badRequest()); }
 
-        reply({access: user.access})
-          .header('Authorization', 'Bearer ' + user.token)
-          .header('Access-Control-Expose-Headers', 'authorization');
+        reply( {user: user} );
       })
     });
   },
@@ -65,11 +63,14 @@ module.exports = {
       reply(true);
     });
   },
-  updateGithubToken: function( request, reply){
-    User.updateGithub(request.auth.credentials.id, request.payload.git, function(err){
+  updateGithub: function( request, reply){
+    if( !request.payload.git || !request.payload.git.token || !request.payload.git.username) {
+      return reply(Boom.badRequest());
+    }
+    User.updateGithub(request.auth.credentials.id, request.payload.git, function(err, user){
       if( err )  { return reply( Boom.badRequest()); }
 
-      reply(true);
+      return GithubCtrl.addOrgMember(request, reply, user);
     });
   },
   register: function (request, reply, server) {
@@ -80,13 +81,14 @@ module.exports = {
     }
     request.payload.user.access = ['authorized'];
     User.create( request.payload.user).then(function(user){
-
-        var confirmAccountLink = server.hostDomain + '/?confirm=' + user.resetPasswordToken;
-        server.mailer( {to: user.email, subject: 'Activate Account', html: confirmAccountLink});
-
-        reply({access: user.access, confirmed: false })
-          .header('Authorization', 'Bearer ' + user.authorizationToken)
-          .header('Access-Control-Expose-Headers', 'authorization');
+        reply({
+          token: 'Bearer ' + user.authorizationToken,
+          email: user.email,
+          access: user.access,
+          id: user.id,
+          networks: user.networks,
+          confirmed: user.confirmed
+        });
       }).catch(function(err){
         reply( Boom.badRequest() ); // user already in system?
     });

@@ -8,6 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderComponent } from './header/header.component';
 import { Components,
   HeadingComponent,
+  MahrioMediaComponent,
   FiltersComponent,
   ActiveFiltersComponent,
   PaginationComponent,
@@ -35,6 +36,8 @@ import { Services } from './services';
     FiltersComponent,
     ActiveFiltersComponent,
     PaginationComponent,
+    MahrioMediaComponent,
+
   ],
   entryComponents: [
     SessionModalComponent

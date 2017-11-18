@@ -8,11 +8,10 @@ try {
     , mongoose = prequire('mongoose');
 }
 var schema = mongoose.Schema({
-    heading: {type: String, default: null},
-    body: {type: String},
-    type: {type: String, default: 'Text'},
-    order: {type: Number}
-  }),
-  Section = mongoose.model('Section', schema);
+    heading: {type: String, required: true},
+    body: {type: String, default: null},
+    url: {type: String, default: null},
+    created: { type: Date, default: Date.now }
+  });
 
-module.exports = Section;
+module.exports = mongoose.model('Section', schema);

@@ -21,9 +21,9 @@ export class RecoverPasswordUpdateComponent {
   changePassword(){
     this.session.changePassword(this.token, this.password)
       .subscribe( res => {
-        this.session.setToken( res.headers.get('authorization') );
-        localStorage.Authorization = res.headers.get('authorization');
-        this.access.emit( res.headers.get('authorization') );
+        localStorage.Authorization = res.user.token;
+        this.session.setSession( res.user );
+        this.access.emit( res.user );
       })
   }
 }

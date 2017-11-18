@@ -40,6 +40,15 @@ module.exports = {
         });
     }
   },
+  getOne: function(req, rep, cb){ //INTERNAL-ONLY
+    Article
+      .findOne( {_id: req.params.id, creator: req.auth.credentials.id }  )
+      .exec( function(err, article){
+        if( err || !article) { return cb( null ); }
+
+        return cb( article );
+      });
+  },
   create: function(req, rep){
     if(req.payload.article){
       req.payload.article.creator = req.auth.credentials.id;
@@ -63,6 +72,13 @@ module.exports = {
     })
 
 
+  },
+  updateArticleRepo: function(req, rep, article){ //INTERNAL-ONLY
+    article.save( function(err){
+      if( err ) { return rep( Boom.badRequest('not-saved') ); }
+
+      return rep({article: article});
+    });
   },
   remove: function(req, rep){
 

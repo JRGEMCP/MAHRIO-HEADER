@@ -4,6 +4,7 @@
         Account
     </a>
     <div class="dropdown-menu dropdown-menu-right" [ngbCollapse]="!accountMenu">
+        <span class="dropdown-item">{{profile.github.username || profile.email}}</span>
         <a class="dropdown-item" (click)="sessionInit('update-password')" role="button">Password</a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" (click)="logoutAll()" role="button">Logout</a>

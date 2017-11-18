@@ -27,7 +27,7 @@ var crypto = require('crypto')
   disabled:       {type: Boolean},
   stripeId:       {type: String, default: null},
   deviceToken:    {type: String, default: null},
-  githubToken:    {type: String, default: null},
+  github:         {type: Object, default: {token: null, username: null, joined: false, invited: false}},
   favorites: [{type: mongoose.Schema.Types.ObjectId, ref: 'Article', unique: true}]
 });
 
@@ -63,7 +63,14 @@ schema.statics.changePassword = function( user, password, cb ){
     if( err ){
       return cb(true);
     }
-    cb(null, {token: authorizationToken, access: access});
+    cb(null, {token: authorizationToken,
+      email: user.email,
+      access: user.access,
+      id: user.id,
+      networks: user.networks,
+      confirmed: user.confirmed,
+      github: {username: user.githubUsername, token: user.githubToken }
+    });
   });
 };
 schema.statics.confirmAccount = function(token, cb){
@@ -132,7 +139,7 @@ schema.statics.isValidToken = function(passwordToken, cb){
 schema.statics.login = function(email, passwordToMatch, cb) {
   if (!email  || ! passwordToMatch) { return cb('missing email or password'); }
 
-  this.findOne({email: email}).exec().then(function(user) {
+  this.findOne({email: email}).then(function(user) {
 
     if (!user) { return cb(true); } //user does not exist
 
@@ -141,10 +148,17 @@ schema.statics.login = function(email, passwordToMatch, cb) {
       return cb(true); //wrong password
     }
 
-    user.save().then( function(){
-      cb(null, {access: user.access, token: token, confirmed: user.confirmed});
+    user.save( function(){
+      cb(null, {
+        token: token,
+        email: user.email,
+        access: user.access,
+        id: user.id,
+        networks: user.networks,
+        confirmed: user.confirmed,
+        github: {username: user.githubUsername, token: user.githubToken }
+      });
     });
-    return null;
   }).catch(function(err){
     cb(true);
   });
@@ -166,15 +180,19 @@ schema.statics.updatePassword = function(id, passwords, cb) {
     cb(true);
   });
 }
-schema.statics.updateGithub = function(id, git_token, cb){
+schema.statics.updateGithub = function(id, git, cb){
   this.findOne({ _id: id}, function (err, user) {
     if (err || !user) { return cb(true); } //user does not exist
 
-    user.githubToken = git_token;
-    user.save(function(err){
-      if (err) { return cb(true); }
-      return cb(false);
-    })
+    user.github = {
+      token: git.token,
+      username: git.username,
+      invited: true,
+      joined: false
+    };
+    user.save().then(user => {
+      return cb(false, user);
+    }, err => {  return cb(true); });
   });
 };
 schema.pre('save', function (next) {
