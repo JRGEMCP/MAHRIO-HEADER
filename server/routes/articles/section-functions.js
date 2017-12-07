@@ -12,6 +12,7 @@ var async = require('async'),
   Boom = require('boom'),
   User = mongoose.model('User'),
   Article = mongoose.model('Article'),
+  ArticleCtrl = require('./articles-functions'),
   Section = mongoose.model('Section');
 
 module.exports = {
@@ -19,7 +20,9 @@ module.exports = {
     Section.create( req.payload.section, function(err, section){
       if( err ) { return rep( Boom.badRequest(err) ); }
 
-      Article.update({_id: req.params.id}, {sections: {$push: section._id}}, {multi: false}, function(err, article){
+      Article.update({_id: req.params.id}, {$push: {sections: section.id}}, {multi: false}, function(err, article){
+        if( err ) { return rep( Boom.badRequest(err) ); }
+
         return rep({section: section});
       });
     });
@@ -47,7 +50,13 @@ module.exports = {
         cb();
       });
     }, function(){
-      return rep({updated: true});
+      return ArticleCtrl.updateState(req, rep);
+
+      Article.update({_id: req.params.id}, {state: 'DEVELOPING'}, {multi: false}, function(err, article){
+        if( err ) { return rep( Boom.badRequest(err) ); }
+
+        return rep({updated: true});
+      });
     });
   },
   update: function(req, rep){

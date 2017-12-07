@@ -1,0 +1,12 @@
+.card {
+  button.btn {
+    position: absolute;
+    right: 0;
+    margin: 5px;
+    padding: 5px;
+    cursor: copy;
+  }
+  .card-img-top {
+    max-height:200px;
+  }
+}

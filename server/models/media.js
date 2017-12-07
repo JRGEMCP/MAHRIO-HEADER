@@ -12,7 +12,7 @@ var schema = mongoose.Schema({
     size: { type: String, requred: true },
     type: { type: String, required: true },
     filename: {type: String, required: true, unique: true},
-    thumb: { type: String, unique: true },
+    thumb: { type: String},
     created: {type: Date}
   });
 

@@ -1,5 +1,33 @@
-<div>
-    <button (click)="uploadFile()">Upload</button>
-    <input type="file" id="inputFile" (change)="fileChangeEvent($event)" placeholder="Upload file..." #fileUpload >
-    <img id="preview" [src]="src" alt="Preview">
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-3">
+            <!--<button (click)="uploadFile()">Upload</button>-->
+            <input type="file" id="inputFile" (change)="fileChangeEvent($event)" placeholder="Upload file..." #fileUpload >
+        </div>
+        <div class="col-md-3" style="text-align: center">
+            <img id="preview" [src]="src" alt="[Preview Pane]" style="max-width: 100%">
+        </div>
+    </div>
 </div>
+
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-2 col-sm-3 col-xs-6" *ngFor="let image of images">
+            <div class="card">
+                <button (click)="copyClipboard(image)" class="btn btn-secondary btn-primary">
+                    <i class="fa fa-copy"></i>
+                </button>
+                <img class="card-img-top" [src]="image.url + image.filename">
+                <div class="p-1">
+                    <p class="card-text">
+                        <small>
+                            Image summary
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -29,6 +29,9 @@ module.exports = {
       if( req.query.id ) {
         find._id = req.query.id
       }
+      if( req.query.published ) {
+        find.published = true;
+      }
       Article
         .find( find )
         .sort( {created: -1})
@@ -52,7 +55,9 @@ module.exports = {
   create: function(req, rep){
     if(req.payload.article){
       req.payload.article.creator = req.auth.credentials.id;
+      //req.payload.article.log = [{action: 'created', by: req.auth.credentials.id}];
     }
+
     Article.create( req.payload.article, function(err, article){
       if( err ) { return rep( Boom.badRequest(err) ); }
 
@@ -66,12 +71,42 @@ module.exports = {
     }
 
     Article.update({_id: req.params.id}, req.payload.article, {multi: false}, function(err,article){
-      if( err ) { return rep( Boom.badRequest(err) ); }
+      if( err ) { return rep( Boom.badRequest(  err) ); }
 
       return rep({article: article});
     })
 
 
+  },
+  tags: function(req, rep){
+    Article.update({_id: req.params.id, creator: req.auth.credentials.id}, {tags: req.payload.tags}, {multi: false}, function(err,article){
+      if( err ) { return rep( Boom.badRequest(  err) ); }
+
+      return rep({article: article});
+    });
+  },
+  updateCodeRepo: function(req, rep){
+    Article.update({_id: req.params.id}, {code: {cache: req.payload.content, git: true}, state: 'DEVELOPING'}, {multi: false}, function(err,article){
+      if( err ) { return rep( Boom.badRequest(err) ); }
+
+      return rep({article: article});
+    })
+  },
+  updateState: function(req, rep){
+    Article
+      .findOne( {_id: req.params.id, creator: req.auth.credentials.id }  )
+      .exec( function(err, article){
+        if( err || !article) { return rep( Boom.badRequest(err) ); }
+
+        if( article.state == 'DEFINING') {
+          article.state = 'DESIGNING';
+        } else {
+          return rep({updated: true});
+        }
+        article.save( function(err){
+          return rep({state: article.state});
+        });
+      });
   },
   updateArticleRepo: function(req, rep, article){ //INTERNAL-ONLY
     article.save( function(err){
@@ -82,5 +117,15 @@ module.exports = {
   },
   remove: function(req, rep){
 
+  },
+  publish: function(req, rep){
+    Article.update({_id: req.params.id, creator: req.auth.credentials.id},
+      {published: true, state: 'DEPLOYED'},
+      {multi: false},
+      function(err,article){
+        if( err ) { return rep( Boom.badRequest(err) ); }
+
+        return rep({article: article});
+      })
   }
 };

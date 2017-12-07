@@ -28,6 +28,7 @@ module.exports = function(req, rep){
 
       article.repo = git.data.html_url;
       article.state = 'DEFINING';
+      //article.logs.push( {action: 'create_git_repo', by: request.auth.credentials.id});
       return ArticleCtrl.updateArticleRepo(req, rep, article);
     });
   })

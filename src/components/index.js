@@ -18,6 +18,9 @@ import { FiltersComponent } from './filters/filters.component';
 import { ActiveFiltersComponent } from './filters-active/active-filters.component';
 import { PaginationComponent } from './pagination/pagination.component';
 
+import { ToastComponent } from './toast/toast.component';
+import { FormTagsComponent } from './tags/tags.component';
+
 export {
   SessionComponent,
 
@@ -37,6 +40,9 @@ export {
   FiltersComponent,
   ActiveFiltersComponent,
   PaginationComponent,
+
+  ToastComponent,
+  FormTagsComponent,
 
 };
 
@@ -59,4 +65,7 @@ export const Components = [
   FiltersComponent,
   ActiveFiltersComponent,
   PaginationComponent,
+
+  ToastComponent,
+  FormTagsComponent,
 ];

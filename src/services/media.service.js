@@ -14,6 +14,11 @@ export class MediaService{
       this._token = token;
     });
   }
+  get(){
+    return this.http.get('/images')
+      .map( res => res.json() || {})
+      .toPromise();
+  }
   getSignedUrl( url ){
     return this.http.get( url )
       .map(res => res.json())

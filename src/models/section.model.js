@@ -9,6 +9,7 @@ export class Section {
   }
 
   get id(){ return this._id; }
+  set id(val){ this._id = val; }
 
   get heading(){ return this._heading; }
   set heading( val ){ this._heading = val; }
