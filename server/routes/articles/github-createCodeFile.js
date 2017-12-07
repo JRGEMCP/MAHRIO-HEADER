@@ -25,8 +25,11 @@ module.exports = function( req, rep) {
 
     // add to database and return true
     ArticleCtrl.updateCodeRepo(req, rep);
+  }, function(){
+    ArticleCtrl.updateCodeRepo(req, rep);
   }).catch(function (err) {
     // pass message along
-    rep( new Boom.badRequest(err) );
+    ArticleCtrl.updateCodeRepo(req, rep);
+    //rep( new Boom.badRequest(err) );
   });
 }

@@ -24,7 +24,10 @@ module.exports = function( req, rep) {
   }).then(function (res) {
 
     return ArticleCtrl.updateCodeRepo(req, rep);
+  }, function(){
+    return ArticleCtrl.updateCodeRepo(req, rep);
   }).catch( function(err){
-    return rep( Boom.badRequest(err) );
+    return ArticleCtrl.updateCodeRepo(req, rep);
+    //return rep( Boom.badRequest(err) );
   })
 }
