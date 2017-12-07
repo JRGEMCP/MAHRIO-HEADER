@@ -28,6 +28,15 @@ export class ArticleService {
   set currentArticle( article ){
     this.article = article;
   }
+  getPublished(){
+    let options = new RequestOptions({});
+    if( this._token && auth ) {
+      options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) })
+    }
+    return this.http.get('/api/articles?published=true', options)
+        .map( res => res.json())
+        .catch( this.handleError );
+  }
   gett( link, auth, id ){
     let options = new RequestOptions({});
     if( this._token && auth ) {
@@ -49,15 +58,21 @@ export class ArticleService {
       .map(res => res.json())
       .toPromise();
   }
+  tags( payload ) {
+    let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) });
+    return this.http.put(`/api/articles/${payload._id}/tags`, {tags: payload.tags}, options)
+        .map(res => res.json())
+        .toPromise();
+  }
   createRepo( id, name, description ){
     let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) });
     return this.http.put(`/api/articles/${id}/repo`, {repo: {name: name, description: description}}, options)
         .map(res => res.json())
         .toPromise();
   }
-  createSections( id, payload ){
+  createSection( id, payload ){
     let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) });
-    return this.http.post(`/api/articles/${id}/sections`, {sections: payload}, options)
+    return this.http.post(`/api/articles/${id}/sections`, {section: payload}, options)
         .map(res => res.json())
         .toPromise();
   }
@@ -82,6 +97,30 @@ export class ArticleService {
   removeSection( id, secId ){
     let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) });
     return this.http.delete(`/api/articles/${id}/section/${secId}`, options)
+        .map(res => res.json())
+        .toPromise();
+  }
+  getCodeSha(id){
+    let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) });
+    return this.http.get(`/api/articles/${id}/code`, options)
+        .map(res => res.json())
+        .toPromise();
+  }
+  createCodeRepo(id){
+    let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) });
+    return this.http.post(`/api/articles/${id}/code`, {}, options)
+        .map(res => res.json())
+        .toPromise();
+  }
+  updateCodeRepo(id, message, sha, content){
+    let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) });
+    return this.http.put(`/api/articles/${id}/code`, {content: content, message: message, sha: sha}, options)
+        .map(res => res.json())
+        .toPromise();
+  }
+  publish(id ){
+    let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) });
+    return this.http.put(`/api/articles/${id}/publish`, {}, options)
         .map(res => res.json())
         .toPromise();
   }

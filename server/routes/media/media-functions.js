@@ -76,7 +76,6 @@ module.exports = {
     } else {
       if( req.method === 'post' ) {
         req.payload.image.url = 'https://mahrio-medium.s3.amazonaws.com/';
-        req.payload.image.thumb = 'https://mahrio-medium-resized.s3.amazonaws.com/';
         Media.create( req.payload.image, function ( err ) {
           if( err ) {
             if( 11000 === err.code || 11001 === err.code ) {

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import {APP_BASE_HREF} from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -12,6 +12,8 @@ import { Components,
   FiltersComponent,
   ActiveFiltersComponent,
   PaginationComponent,
+  ToastComponent,
+  FormTagsComponent,
   SessionModalComponent  } from './components/index';
 import { Services } from './services';
 
@@ -21,6 +23,7 @@ import { Services } from './services';
     BrowserModule,
     NgbModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule,
   ],
   declarations: [
@@ -36,8 +39,9 @@ import { Services } from './services';
     FiltersComponent,
     ActiveFiltersComponent,
     PaginationComponent,
+    ToastComponent,
     MahrioMediaComponent,
-
+    FormTagsComponent,
   ],
   entryComponents: [
     SessionModalComponent

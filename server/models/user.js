@@ -110,7 +110,7 @@ schema.statics.resetConfirmed = function( token, cb ){
 schema.statics.recoverPassword = function( email, cb ){
   if( !email ) { return cb(); }
 
-  this.findOne({email: email}).exec().then(function (user) {
+  this.findOne({email: email}).then(function (user) {
     if (!user) { return cb(); } //user does not exist
 
     var token = crypto.randomBytes(20).toString('hex');
@@ -139,9 +139,9 @@ schema.statics.isValidToken = function(passwordToken, cb){
 schema.statics.login = function(email, passwordToMatch, cb) {
   if (!email  || ! passwordToMatch) { return cb('missing email or password'); }
 
-  this.findOne({email: email}).then(function(user) {
+  this.findOne({email: email}, function(err, user) {
 
-    if (!user) { return cb(true); } //user does not exist
+    if (err || !user) { return cb(true); } //user does not exist
 
     var token = user.authenticate(passwordToMatch);
     if (!token ) {
@@ -159,14 +159,12 @@ schema.statics.login = function(email, passwordToMatch, cb) {
         github: {username: user.githubUsername, token: user.githubToken }
       });
     });
-  }).catch(function(err){
-    cb(true);
   });
 };
 schema.statics.updatePassword = function(id, passwords, cb) {
   if(!id || !passwords.currentPassword || !passwords.newPassword) { return cb(true); }
 
-  this.findOne({_id: id}).exec().then( function(user){
+  this.findOne({_id: id}).then( function(user){
     if( !user ) { return cb(true); }
 
     if( hashPwd(user.salt, passwords.currentPassword) !== user.password ) {

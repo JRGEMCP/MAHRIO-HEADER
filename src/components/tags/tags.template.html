@@ -1,0 +1,29 @@
+<div class="form-group" [ngClass]="{'has-danger': !isTag_valid && wasTag_touched}">
+    <label for="tags">Tags / Keywords</label>
+    <div class="form-group" *ngIf="tags && tags.size">
+        <span *ngFor="let tag of tags; let i = index" class="badge badge-default ml-1">
+            {{tag}}
+            <i class="fa fa-close" (click)="removeTag( tag )"></i>
+        </span>
+    </div>
+    <form [formGroup]="form" novalidate>
+        <ng-template #rt let-r="result" let-t="term">
+            <span [innerHTML]="r"></span>
+        </ng-template>
+        <div class="input-group">
+            <input id="tags" type="text" formControlName="tag" placeholder="Enter tag"
+                   [ngClass]="{'form-control-danger': !isTag_valid && wasTag_touched}"
+                   [ngbTypeahead]="search" [resultTemplate]="rt" (selectItem)="selectItem($event)"
+                   class="form-control" />
+            <span class="input-group-btn">
+                <button class="btn btn-secondary" type="button" (click)="onSubmit()">
+                    <i class="fa fa-plus"></i>
+                </button>
+            </span>
+        </div>
+
+        <div class="form-control-feedback" *ngIf="!isTag_valid && wasTag_touched">
+            Invalid Character Found
+        </div>
+    </form>
+</div>

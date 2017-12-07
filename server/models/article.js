@@ -14,14 +14,16 @@ var schema = mongoose.Schema({
     title: {type: String, required: true},
     link: {type: String, unique: true},
     deck: {type: String},
+    tags: [{type: String}],
     repo: {type: String},
     state: {type: String, default: 'DISCOVERING'},
     type: {type: String, default: 'Article'},
+    code: {type: Object, default: {git: null, cache: null} },
     sections: [{type: mongoose.Schema.Types.ObjectId, ref: 'Section'}],
     created: { type: Date, default: Date.now },
-    published: {type: Boolean, default: false},
     log: [{type: Object}],
-    creator: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
+    creator: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+    published: { type: Boolean, default: false}
   });
 
 module.exports = mongoose.model('Article', schema);

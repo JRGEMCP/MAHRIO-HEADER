@@ -1,6 +1,7 @@
 var async = require('async');
 var GitHubApi = require('github');
 var github = new GitHubApi();
+var ArticleCtrl = require('./articles-functions');
 var SectionCtrl = require('./section-functions');
 var Boom = require('boom');
 
@@ -59,6 +60,6 @@ module.exports = function( req, rep) {
   }, function(err){
     if( err ){ return rep(Boom.badRequest(err));  }
 
-    rep();
+    return ArticleCtrl.updateState(req, rep);
   })
 }

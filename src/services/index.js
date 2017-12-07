@@ -8,6 +8,7 @@ import { SectionService } from './article-section.service';
 import { SocketService } from './socket.service';
 import { PaginationService } from './pagination.service';
 import { MediaService } from './media.service';
+import { ClipboardService } from './clipboard.service';
 
 export {
   OauthSessionService,
@@ -20,6 +21,7 @@ export {
   SocketService,
   PaginationService,
   MediaService,
+  ClipboardService,
 };
 
 export const Services = [
@@ -33,4 +35,5 @@ export const Services = [
   SocketService,
   PaginationService,
   MediaService,
+  ClipboardService,
 ];

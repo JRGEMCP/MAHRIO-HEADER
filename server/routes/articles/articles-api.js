@@ -28,6 +28,14 @@ module.exports = function( server ) {
       }
     },
     {
+      method: 'GET',
+      path: '/api/articles/{id}/code',
+      config: {
+        handler: require('./github-anyFileRead'),
+        auth: 'simple'
+      }
+    },
+    { // TUTORIAL LIFECYCLE STEP 1 ***** DISCOVERING
       method: 'POST',
       path: '/api/articles',
       config: {
@@ -35,15 +43,55 @@ module.exports = function( server ) {
         auth: 'simple'
       }
     },
-    {
-      method: 'POST',
-      path: '/api/articles/{id}/sections',
+    { // TUTORIAL LIFECYCLE STEP 1 - UPDATE DISCOVERY
+      method: 'PUT',
+      path: '/api/articles/{id}',
       config: {
-        handler: SectionCtrl.createMany,
+        handler: ArticleCtrl.update,
         auth: 'simple'
       }
     },
-    {
+    { // TUTORIAL LIFECYCLE STEP 1 - UPDATE TAGS
+      method: 'PUT',
+      path: '/api/articles/{id}/tags',
+      config: {
+        handler: ArticleCtrl.tags,
+        auth: 'simple'
+      }
+    },
+    { // TUTORIAL LIFECYCLE STEP 4 - CREATE CODE FILE ***** DEVELOPING
+      method: 'POST',
+      path: '/api/articles/{id}/code',
+      config: {
+        handler: require('./github-createCodeFile'),
+        auth: 'simple'
+      }
+    },
+    { // TUTORIAL LIFECYCLE STEP 2 - CREATE SECTION
+      method: 'POST',
+      path: '/api/articles/{id}/sections',
+      config: {
+        handler: SectionCtrl.create,
+        auth: 'simple'
+      }
+    },
+    { // TUTORIAL LIFECYCLE STEP 5 - PUBLISH ***** DEPLOYED
+      method: 'PUT',
+      path: '/api/articles/{id}/publish',
+      config: {
+        handler: ArticleCtrl.publish,
+        auth: 'simple'
+      }
+    },
+    { // TUTORIAL LIFECYCLE STEP 4 - UPDATE CODE FILE
+      method: 'PUT',
+      path: '/api/articles/{id}/code',
+      config: {
+        handler: require('./github-updateCodeFile'),
+        auth: 'simple'
+      }
+    },
+    { // TUTORIAL LIFECYCLE STEP 3 - CREATE REPO FILES ***** DESIGNING
       method: 'PUT',
       path: '/api/articles/{id}/sections/repo',
       config: {
@@ -51,7 +99,7 @@ module.exports = function( server ) {
         auth: 'simple'
       }
     },
-    {
+    { // TUTORIAL LIFECYCLE STEP 2 - CREATE REPO ***** DEFINING
       method: 'PUT',
       path: '/api/articles/{id}/repo',
       config: {
@@ -75,15 +123,7 @@ module.exports = function( server ) {
         auth: 'simple'
       }
     },
-    {
-      method: 'PUT',
-      path: '/api/articles/{id}',
-      config: {
-        handler: ArticleCtrl.update,
-        auth: 'simple'
-      }
-    },
-    {
+    { // TUTORIAL LIFECYCLE STEP 3 - UPDATE SECTIONS' DESIGN
       method: 'PUT',
       path: '/api/articles/{id}/sections',
       config: {
@@ -99,7 +139,7 @@ module.exports = function( server ) {
         auth: 'simple'
       }
     },
-    {
+    { // TUTORIAL LIFECYCLE STEP 2 - DELETE SECTION
       method: 'DELETE',
       path: '/api/articles/{id}/section/{secId}',
       config: {
