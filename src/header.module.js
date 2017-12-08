@@ -14,6 +14,7 @@ import { Components,
   PaginationComponent,
   ToastComponent,
   FormTagsComponent,
+  HeadingBarComponent,
   SessionModalComponent  } from './components/index';
 import { Services } from './services';
 
@@ -42,6 +43,7 @@ import { Services } from './services';
     ToastComponent,
     MahrioMediaComponent,
     FormTagsComponent,
+    HeadingBarComponent,
   ],
   entryComponents: [
     SessionModalComponent

@@ -8,7 +8,7 @@ import { RecoverPasswordUpdateComponent } from './session-modal/recoverpassword-
 import { ConfirmAccountComponent } from './session-modal/confirmaccount/confirmaccount.component';
 import { ConfirmAccountRetryComponent } from './session-modal/confirmaccount-retry/confirmaccount-retry.component';
 import { UpdatePasswordComponent } from './session-modal/update-password/update-password.component';
-
+import { HeadingBarComponent } from './heading-bar/heading-bar.component';
 import { NotificationComponent } from './notification/notification.component';
 
 import { MahrioMediaComponent } from './media/media.component';
@@ -35,6 +35,7 @@ export {
 
   NotificationComponent,
   MahrioMediaComponent,
+  HeadingBarComponent,
 
   HeadingComponent,
   FiltersComponent,
@@ -60,6 +61,7 @@ export const Components = [
 
   NotificationComponent,
   MahrioMediaComponent,
+  HeadingBarComponent,
 
   HeadingComponent,
   FiltersComponent,

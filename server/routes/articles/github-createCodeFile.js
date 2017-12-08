@@ -6,6 +6,8 @@ var Boom = require('boom');
 
 module.exports = function( req, rep) {
 
+  req.payload.content = '#!/usr/bin/env node\n\n';
+
   github.authenticate({
     type: "oauth",
     token: req.auth.credentials.github.token
@@ -20,7 +22,7 @@ module.exports = function( req, rep) {
       name: req.auth.credentials.github.username,
       email: req.auth.credentials.email
     },
-    content: Buffer.from('#!/usr/bin/env node').toString('base64'),
+    content: Buffer.from( req.payload.content ).toString('base64'),
   }).then(function (res) {
 
     // add to database and return true

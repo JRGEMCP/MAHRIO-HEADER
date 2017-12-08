@@ -43,7 +43,10 @@ var tagz = [
   'http',
   'mobile',
   'ionic',
-  'oauth'
+  'oauth',
+
+
+  'mahrio'
 ];
 
 import template from './tags.template.html';
