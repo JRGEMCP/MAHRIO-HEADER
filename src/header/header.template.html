@@ -4,11 +4,17 @@
           <button class="navbar-toggler navbar-toggler-right" role="button" (click)="isCollapsed = !isCollapsed">
               <span class="navbar-toggler-icon"></span>
           </button>
-          <a class="navbar-brand" href="/">Mahr.io</a>
+          <div class="col-9 hidden-md-up">
+              <a class="navbar-brand" href="/">Mahr.io</a>
+          </div>
 
-          <div class="collapse navbar-collapse" [ngbCollapse]="!isCollapsed">
+          <a class="navbar-brand hidden-sm-down" href="/">Mahr.io</a>
+
+          <div class="collapse navbar-collapse text-xs-left text-xl-left text-right" [ngbCollapse]="!isCollapsed">
+              <div class="btn-block mt-1 mb-2 hidden-md-up"></div>
+
               <ul class="navbar-nav mr-auto">
-                  <li class="nav-item">
+                  <li class="nav-item col-12">
                       <a class="nav-link" href="/tutorials" role="button">Tutorials</a>
                   </li>
                   <li class="nav-item" *ngIf="isLoggedIn">
@@ -16,9 +22,9 @@
                   </li>
               </ul>
               <div class="form-inline my-2 my-lg-0">
-                  <ul class="nav text-white">
+                  <ul class="nav text-white btn-block   ">
                       <notification *ngIf="isLoggedIn" ></notification>
-                      <session (auth)="proxyAuth($event)"></session>
+                      <session class="btn-block" (auth)="proxyAuth($event)"></session>
                   </ul>
               </div>
           </div>
