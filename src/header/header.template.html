@@ -11,19 +11,50 @@
           <a class="navbar-brand hidden-sm-down" href="/">Mahr.io</a>
 
           <div class="collapse navbar-collapse text-xs-left text-xl-left text-right" [ngbCollapse]="!isCollapsed">
-              <div class="btn-block mt-1 mb-2 hidden-md-up"></div>
+              <div class="btn-block mt-3 hidden-lg-up"></div>
 
-              <ul class="navbar-nav mr-auto">
-                  <li class="nav-item col-12">
+              <ul class="navbar-nav mr-auto hidden-sm-down">
+                  <li class="nav-item">
                       <a class="nav-link" href="/tutorials" role="button">Tutorials</a>
                   </li>
-                  <li class="nav-item" *ngIf="isLoggedIn">
-                      <a class="nav-link" href="/dashboard" role="button">Dashboard</a>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/features" role="button">Features</a>
                   </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/products" role="button">Products</a>
+                  </li>
+                  <!--<li class="nav-item">-->
+                  <!--<a class="nav-link" href="/community" role="button">Community</a>-->
+                  <!--</li>-->
+
+              </ul>
+              <ul class="navbar-nav mr-auto hidden-md-up">
+                  <li class="nav-item">
+                      <h2 class="text-center">
+                          <a class="nav-link" href="/tutorials" role="button">Tutorials</a>
+                      </h2>
+                  </li>
+                  <li class="nav-item">
+                      <h2 class="text-center">
+                        <a class="nav-link" href="/features" role="button">Features</a>
+                      </h2>
+                  </li>
+                  <li class="nav-item">
+                      <h2 class="text-center">
+                        <a class="nav-link" href="/products" role="button">Products</a>
+                      </h2>
+                  </li>
+                  <!--<li class="nav-item">-->
+                      <!--<a class="nav-link" href="/community" role="button">Community</a>-->
+                  <!--</li>-->
+
               </ul>
               <div class="form-inline my-2 my-lg-0">
                   <ul class="nav text-white btn-block   ">
                       <notification *ngIf="isLoggedIn" ></notification>
+                      <li class="nav-item" *ngIf="isLoggedIn">
+                          <a class="nav-link" href="/dashboard" role="button">Dashboard</a>
+                      </li>
                       <session class="btn-block" (auth)="proxyAuth($event)"></session>
                   </ul>
               </div>

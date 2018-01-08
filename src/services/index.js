@@ -2,6 +2,8 @@ import { OauthSessionService } from './oauth-session.service';
 import { AccessControlService } from './accesscontrol.service';
 import { NotificationService } from './notification.service';
 import { ArticleService } from './article.service';
+import { TopicService } from './topic.service';
+import { CategoryService } from './category.service';
 import { ArticleFavoriteService } from './article-favorites.service';
 import { GithubService } from './github.service';
 import { SectionService } from './article-section.service';
@@ -15,6 +17,8 @@ export {
   AccessControlService,
   NotificationService,
   ArticleService,
+  TopicService,
+  CategoryService,
   ArticleFavoriteService,
   GithubService,
   SectionService,
@@ -29,6 +33,8 @@ export const Services = [
   AccessControlService,
   NotificationService,
   ArticleService,
+  TopicService,
+  CategoryService,
   ArticleFavoriteService,
   GithubService,
   SectionService,

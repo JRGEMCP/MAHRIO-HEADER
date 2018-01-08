@@ -21,12 +21,26 @@ export class ArticleService {
     });
     this.articles = [];
     this.article;
+    this.topic;
+    this.category;
   }
   get currentArticle(){
     return this.article;
   }
   set currentArticle( article ){
     this.article = article;
+  }
+  get currentFeature(){
+    return this.topic;
+  }
+  set currentFeature(val){
+    this.topic = val;
+  }
+  get currentProduct(){
+    return this.category;
+  }
+  set currentProduct(val){
+    this.category = val;
   }
   getPublished(){
     let options = new RequestOptions({});

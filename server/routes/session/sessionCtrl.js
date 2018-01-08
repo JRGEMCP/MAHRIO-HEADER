@@ -100,6 +100,7 @@ module.exports = {
       if( err ){ return reply(Boom.badRequest()); }
 
       console.log( token );
+
       reply({resendConfirmationToken: true});
     })
   },

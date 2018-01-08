@@ -10,13 +10,15 @@ module.exports = function( server ){
     method: 'GET',
     path: '/images/{id?}',
     config: {
-      handler: mediaCtrl.get
+      handler: mediaCtrl.get,
+      auth: 'simple'
     }
   }, {
     method: ['GET','POST','PUT','DELETE'],
     path: '/api/images/{id?}',
     config: {
-      handler: mediaCtrl.allInOne
+      handler: mediaCtrl.allInOne,
+      auth: 'simple'
     }
   }].forEach(function (route) { server.route(route); });
 }

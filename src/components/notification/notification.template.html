@@ -4,7 +4,17 @@
         <i class="fa fa-bell"></i>
         <span class="badge badge-info badge-notification" *ngIf="notices.length">{{notices.length}}</span>
     </a>
-    <ul class="dropdown-menu dropdown-menu-right" [ngbCollapse]="!notifications">
+    <ul class="dropdown-menu dropdown-menu-right hidden-md-down" [ngbCollapse]="!notifications">
+        <li class="dropdown-item zero-notices" *ngIf="!notices.length">
+            You have 0 notices.
+        </li>
+        <li *ngFor="let notice of notices">
+            <a class="dropdown-item" (click)="notice.goTo()">
+                {{notice.subject}}
+            </a>
+        </li>
+    </ul>
+    <ul class="dropdown-menu dropdown-menu-left hidden-lg-up" [ngbCollapse]="!notifications">
         <li class="dropdown-item zero-notices" *ngIf="!notices.length">
             You have 0 notices.
         </li>

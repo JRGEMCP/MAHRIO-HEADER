@@ -7,7 +7,7 @@ import style from './active-filters.style.scss';
   selector: 'active-filters',
   template,
   styles: [style],
-  inputs: ['page'],
+  inputs: ['page', 'entity'],
   outputs: ['change']
 })
 

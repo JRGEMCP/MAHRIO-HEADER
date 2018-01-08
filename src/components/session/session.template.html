@@ -12,13 +12,13 @@
     </div>
 </li>
 <li *ngIf="!loading && !account" class="btn-block">
-    <div class="hidden-md-up" >
-        <div class="col-sm-12">
-            <button class="btn btn-success mb-1 btn-block"
+    <div class="row hidden-md-up" >
+        <div class="col-6">
+            <button class="btn btn-lg btn-success mb-1 btn-block"
                     (click)="sessionInit('register')">Register</button>
         </div>
-        <div class="col-sm-12">
-            <button class="btn btn-success btn-block"
+        <div class="col-6">
+            <button class="btn btn-lg btn-success btn-block"
                     (click)="sessionInit('login')">Login</button>
         </div>
     </div>
