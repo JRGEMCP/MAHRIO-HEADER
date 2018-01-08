@@ -10,8 +10,7 @@ module.exports = function( server ){
     method: 'GET',
     path: '/images/{id?}',
     config: {
-      handler: mediaCtrl.get,
-      auth: 'simple'
+      handler: mediaCtrl.get
     }
   }, {
     method: ['GET','POST','PUT','DELETE'],
