@@ -1,0 +1,9 @@
+<div class="alert alert-{{type}} p-0">
+    <h4 class="alert-heading" *ngIf="type=='danger'">
+        Something's gone wrong.
+    </h4>
+    <p class="mb-0 text-muted">
+        <i class="fa fa-exclamation-triangle text-danger" *ngIf="type=='danger'"></i>
+        {{msg}}
+    </p>
+</div>

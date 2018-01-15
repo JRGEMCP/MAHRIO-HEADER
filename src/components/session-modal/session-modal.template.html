@@ -5,31 +5,31 @@
     </button>
 </div>
 <div class="modal-body">
-    <div [ngbCollapse]="state !== 'login'">
+    <div *ngIf="state == 'login'">
         <login (go)="goTo($event)" (access)="auth($event)"></login>
     </div>
 
-    <div [ngbCollapse]="state !== 'register'">
+    <div *ngIf="state == 'register'">
         <register (go)="goTo($event)" (access)="auth($event)"></register>
     </div>
 
-    <div [ngbCollapse]="state !== 'recover-password'">
+    <div *ngIf="state == 'recover-password'">
         <recover-password (go)="goTo($event)" (done)="activeModal.dismiss()"></recover-password>
     </div>
 
-    <div [ngbCollapse]="state !== 'recover-password-update'">
+    <div *ngIf="state == 'recover-password-update'">
         <recover-password-update [token]="token" (access)="auth($event)"></recover-password-update>
     </div>
 
-    <div [ngbCollapse]="state !== 'confirm-account'">
+    <div *ngIf="state == 'confirm-account'">
         <confirm-account (done)="activeModal.dismiss()"></confirm-account>
     </div>
 
-    <div [ngbCollapse]="state !== 'update-password'">
+    <div *ngIf="state == 'update-password'">
         <update-password></update-password>
     </div>
 
-    <div [ngbCollapse]="state !== 'confirm-account-retry'">
+    <div *ngIf="state == 'confirm-account-retry'">
         <confirm-account-retry (done)="activeModal.dismiss()"></confirm-account-retry>
     </div>
 

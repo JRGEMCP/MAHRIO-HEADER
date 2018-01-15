@@ -7,6 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { HeaderComponent } from './header/header.component';
 import { Components,
+  AlertStatusComponent,
   HeadingComponent,
   MahrioMediaComponent,
   FiltersComponent,
@@ -35,6 +36,7 @@ import { Services } from './services';
     Services
   ],
   exports: [
+    AlertStatusComponent,
     HeaderComponent,
     HeadingComponent,
     FiltersComponent,

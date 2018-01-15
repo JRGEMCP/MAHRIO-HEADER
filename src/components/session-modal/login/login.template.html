@@ -1,12 +1,17 @@
-loginInputEmail1<div>
-    <div class="form-group">
-        <label for="loginInputEmail1">Email address</label>
-        <input [(ngModel)]="user.email" type="email" class="form-control" id="loginInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-    </div>
-    <div class="form-group">
-        <label for="loginInputPassword1">Password</label>
-        <input [(ngModel)]="user.password" type="password" class="form-control" id="loginInputPassword1" placeholder="Password">
-    </div>
+<div>
+    <alert-status *ngIf="type && msg" [msg]="msg" [type]="type"></alert-status>
+
+    <form [formGroup]="user.form">
+        <div class="form-group">
+            <label for="loginInputEmail1">Email address</label>
+            <input formControlName="email" type="text" class="form-control" id="loginInputEmail1" placeholder="Enter email">
+        </div>
+        <div class="form-group">
+            <label for="loginInputPassword1">Password</label>
+            <input formControlName="password" type="password" class="form-control" id="loginInputPassword1" placeholder="Password">
+        </div>
+    </form>
+
 
     <div class="form-group text-center">
         <button (click)="login()" role="button" class="btn btn-primary">
