@@ -52,7 +52,7 @@ export class SessionComponent {
           this.account = true;
           this.profile = user;
           this.auth.emit(this.authToken);
-          if( !user.confirmed ) { this.notice.addNotice( new Notice({modal: this.ngbModal, component: SessionModalComponent, state: 'confirm-account-retry'}) ); }
+          if( !user.confirmed ) { this.notice.addNotice( new Notice({modal: this.ngbModal, title: 'Unconfirmed Account', component: SessionModalComponent, state: 'confirm-account-retry'}) ); }
           // GITHUB ORGS
           if( this.profile.github && this.profile.github.token ) {
             this.github.getOrgs().then( () => { }, err => { });

@@ -50,10 +50,10 @@
 
               </ul>
               <div class="form-inline my-2 my-lg-0">
-                  <ul class="nav text-white btn-block   ">
+                  <ul class="nav text-white btn-block">
                       <notification *ngIf="isLoggedIn" ></notification>
                       <li class="nav-item" *ngIf="isLoggedIn">
-                          <a class="nav-link" href="/dashboard" role="button">Dashboard</a>
+                          <a class="nav-link text-white" href="/dashboard" role="button">Dashboard</a>
                       </li>
                       <session class="btn-block" (auth)="proxyAuth($event)"></session>
                   </ul>

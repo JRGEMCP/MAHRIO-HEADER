@@ -21,7 +21,11 @@ export class ConfirmAccountRetryComponent {
   resendEmail(){
     this.session.resendConfirmEmail()
       .then(res => {
-        console.log('resent confirmation');
+        this.type = 'success';
+        this.msg = 'We have resent you a confirmation link, please check your email';
+      }, () => {
+        this.type = 'danger';
+        this.msg = 'We are unable to procees your request at this time';
       })
   }
 }

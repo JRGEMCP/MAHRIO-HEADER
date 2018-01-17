@@ -32,6 +32,13 @@ export class Article {
   get deck(){ return this._deck; }
   set deck( val ){ this._deck = val; }
 
+  get tagsArray(){
+      let arr = [];
+      this._tags.forEach( (item) => {
+        arr.push( item );
+      });
+      return arr;
+  }
   get tags(){ return this._tags; }
   set tags(val){ this._tags = val; }
 

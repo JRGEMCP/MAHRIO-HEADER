@@ -22,6 +22,8 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { ToastComponent } from './toast/toast.component';
 import { FormTagsComponent } from './tags/tags.component';
 
+import { SubHeaderComponent } from './sub-header/sub-header.component';
+
 export {
   SessionComponent,
 
@@ -46,6 +48,7 @@ export {
 
   ToastComponent,
   FormTagsComponent,
+  SubHeaderComponent,
 
 };
 
@@ -73,4 +76,6 @@ export const Components = [
 
   ToastComponent,
   FormTagsComponent,
+
+  SubHeaderComponent,
 ];

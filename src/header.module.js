@@ -7,6 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { HeaderComponent } from './header/header.component';
 import { Components,
+  SubHeaderComponent,
   AlertStatusComponent,
   HeadingComponent,
   MahrioMediaComponent,
@@ -46,6 +47,7 @@ import { Services } from './services';
     MahrioMediaComponent,
     FormTagsComponent,
     HeadingBarComponent,
+    SubHeaderComponent
   ],
   entryComponents: [
     SessionModalComponent

@@ -1,0 +1,11 @@
+.navbar {
+  z-index: 9;
+}
+.media-library {
+  position: absolute;
+  height: calc(100vh - 120px);
+  width: 100%;
+  z-index: 99;
+  background: #fff;
+  margin-left: -15px;
+}

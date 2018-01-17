@@ -4,7 +4,7 @@ export class Notice {
   }
 
   get subject() {
-    return 'subject';
+    return this.config.title;
   }
 
   goTo(){

@@ -4,9 +4,8 @@ import template from './login.template.html';
 import { OauthSessionService, NotificationService } from '../../../services';
 import { Notice } from '../../../models';
 import { FormBuilder } from '@angular/forms';
-
-import { SessionModalComponent } from '../../session-modal/session-modal.component';
 import { Session } from '../../../models';
+import { SessionModalComponent } from '../../session-modal/session-modal.component';
 
 @Component({
   selector: 'login',

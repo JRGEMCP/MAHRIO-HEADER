@@ -13,20 +13,30 @@ var Boom = require('boom'),
 
 module.exports = {
   get: function(req, rep){
-    Topic.find({published: true}).populate('articles').exec( function(err, topics) {
+    let query = {published: true},
+      pop = 'articles';
+
+    if( req.params.id ){
+      query['_id'] = req.params.id;
+    }
+    if( req.params.id && typeof req.query.edit !== 'undefined') {
+      delete query.published;
+      pop = '';
+    }
+    Topic.find(query).populate(pop).exec( function(err, topics) {
       if( err ) { return rep( Boom.badRequest(err) ); }
 
       rep({topics: topics});
     });
   },
   create: function(req, rep){
-    if(req.payload.topic && req.auth.credentials ){
+    if(req.payload.topic && req.payload.topic.title && req.payload.topic.link ){
       req.payload.topic.creator = req.auth.credentials.id;
     } else {
       return rep( Boom.badRequest() );
     }
 
-    Topic.create( req.payload.topic, function ( err ) {
+    Topic.create( req.payload.topic, function ( err, topic ) {
       if( err ) {
         if( 11000 === err.code || 11001 === err.code ) {
           return rep( Boom.badRequest("Duplicate key error index") );
@@ -34,7 +44,7 @@ module.exports = {
           return rep( Boom.badRequest(err) );
         }
       }
-      rep({created: true});
+      rep({topic: topic});
     });
   },
   update: function(req, rep){
@@ -52,7 +62,9 @@ module.exports = {
         break;
       case 'articles':
         updateObj = {
-          topics: req.payload.articles || []
+          $set: {
+            articles: req.payload.articles || []
+          }
         }
         break;
       case 'body':

@@ -2,6 +2,8 @@ import { Component, EventEmitter } from '@angular/core';
 import template from './recover-password.template.html';
 
 import { OauthSessionService } from '../../../services';
+import { FormBuilder } from '@angular/forms';
+import { Session } from '../../../models';
 
 @Component({
   selector: 'recover-password',
@@ -12,17 +14,14 @@ import { OauthSessionService } from '../../../services';
 export class RecoverPasswordComponent {
 
   static get parameters(){
-    return [OauthSessionService];
+    return [OauthSessionService, FormBuilder];
   }
 
-  constructor(OauthSessionService){
+  constructor(OauthSessionService, FormBuilder){
     this.session = OauthSessionService;
     this.go = new EventEmitter();
     this.done = new EventEmitter();
-    this.email = '';
-  }
-
-  ngOnInit(){
+    this.user = new Session( FormBuilder );
   }
 
   goTo( state ) {
@@ -30,13 +29,18 @@ export class RecoverPasswordComponent {
   }
 
   recoverPassword(){
-    this.session.recoverPassword( this.email )
+    this.session.recoverPassword( this.user.form.controls.email.value )
       .subscribe( res => {
         this.success = true;
+      }, () => {
+        this.showError();
       })
+  }
+  showError(){
+    this.type = 'danger';
+    this.msg = 'Please try to reset your password again';
   }
   close(){
     this.done.emit();
   }
 }
-

@@ -28,23 +28,26 @@ export class TopicService {
   set currentTopic( topic ){
     this.topic = topic;
   }
-  list( auth ){
+  list( id, edit ){
     let options = new RequestOptions({});
-    return this.http.get('/api/topics', options)
+    if( this._token ) {
+      options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) })
+    }
+    return this.http.get('/api/topics' + (id ? '/'+id : '') + (edit ? '?edit' : ''), options)
         .map( res => res.json())
         .catch( this.handleError );
   }
   post( payload ) {
     let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) });
-    return this.http.post('/api/topics', {topic: payload}, options)
+    return this.http.post('/api/topics', payload, options)
         .map(res => res.json())
-        .catch( this.handleError );
+        .toPromise();
   }
-  put( payload ) {
+  put( id, payload, type ) {
     let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) });
-    return this.http.put(`/api/topics/${payload._id}`, {topic: payload}, options)
+    return this.http.put(`/api/topics/${id}/${type}`, payload, options)
         .map(res => res.json())
-        .catch( this.handleError );
+        .toPromise();
   }
   remove( id) {
     let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) });

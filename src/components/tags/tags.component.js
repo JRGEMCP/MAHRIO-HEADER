@@ -44,8 +44,6 @@ var tagz = [
   'mobile',
   'ionic',
   'oauth',
-
-
   'mahrio'
 ];
 

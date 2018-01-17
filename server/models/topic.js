@@ -10,11 +10,11 @@ try {
 
 var schema = mongoose.Schema({
   title: {type: String, required: true, unique: true},
-  link: {type: String, unique: true},
+  link: {type: String, required: true, unique: true},
   deck: {type: String},
-  body: [{type:String}],
+  body: [{type: String}], // article_{{id}}_insert
   tags: [{type: String}],
-  articles: [{type: mongoose.Schema.Types.ObjectId, ref: 'Article'}],
+  articles: [{type: mongoose.Schema.Types.ObjectId, ref: 'Article', unique: true}],
   created: { type: Date, default: Date.now },
   published: {type: Boolean, default: false},
   creator: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}

@@ -4,6 +4,8 @@ import template from './register.template.html';
 
 import { OauthSessionService, NotificationService } from '../../../services';
 import { Notice } from '../../../models';
+import { FormBuilder } from '@angular/forms';
+import { Session } from '../../../models';
 
 @Component({
   selector: 'register',
@@ -14,15 +16,15 @@ import { Notice } from '../../../models';
 export class RegisterComponent {
 
   static get parameters(){
-    return [OauthSessionService, NotificationService];
+    return [OauthSessionService, NotificationService, FormBuilder ];
   }
 
-  constructor(OauthSessionService, NotificationService){
+  constructor(OauthSessionService, NotificationService, FormBuilder ){
     this.session = OauthSessionService;
     this.notice = NotificationService;
     this.go = new EventEmitter();
     this.access = new EventEmitter();
-    this.user = {};
+    this.user = new Session( FormBuilder )
   }
 
   goTo( state ) {
@@ -30,15 +32,19 @@ export class RegisterComponent {
   }
 
   register(){
-    this._subs = this.session.register(this.user)
+    this._subs = this.session.register(this.user.payload)
       .subscribe( user => {
         localStorage.Authorization = user.token;
         this.session.setSession( user );
         this.access.emit( user );
         this.notice.addNotice( new Notice() );
       }, err => {
-        console.log('err: '+err)
+        this.showError();
     });
+  }
+  showError(){
+    this.type = 'danger';
+    this.msg = 'We are having trouble registering'
   }
   ngOnDestroy(){
     if( this._subs ) { this._subs.unsubscribe(); }

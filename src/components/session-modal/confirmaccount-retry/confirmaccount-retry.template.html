@@ -1,9 +1,12 @@
 <div>
     <div class="text-center">
-        <p>Your account has not been confirmed.</p>
+        <p>Your account has not been confirmed. Click below to receive confirmation link in your inbox.</p>
 
+        <alert-status [type]="type" [msg]="msg" *ngIf="type && msg"></alert-status>
 
-        <button (click)="resendEmail()" role="button" class="btn btn-primary">
+        <button (click)="resendEmail()"
+                *ngIf="!type && !msg"
+                role="button" class="btn btn-primary">
             Resend Email
         </button>
     </div>
