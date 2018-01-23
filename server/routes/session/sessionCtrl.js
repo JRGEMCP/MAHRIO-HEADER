@@ -26,10 +26,14 @@ module.exports = {
       reply( {user: user} );
     });
   },
-  recoverPassword: function (request, reply){
+  recoverPassword: function (request, reply, server){
     User.recoverPassword( request.payload.email.toLowerCase(), function(token){
-      if( token ){
-        console.log( token );
+      if( server.mailer && token ) {
+        server.mailer({
+          to: request.payload.email.toLowerCase(),
+          subject: 'Reset your Mahr.io account',
+          html: 'Reset your account <a href="'+ server.hostDomain + '/?token='+token + '">here</a>'
+        });
       }
       reply({reset: true});
     });
@@ -81,6 +85,14 @@ module.exports = {
     }
     request.payload.user.access = ['authorized'];
     User.create( request.payload.user).then(function(user){
+        if( server.mailer ) {
+          server.mailer({
+            to: user.email,
+            subject: 'Welcome to Mahr.io',
+            html: 'Activate your account <a href="'+ server.hostDomain + '/?confirm='+user.confirmedToken + '">here</a>'
+          });
+        }
+
         reply({
           token: 'Bearer ' + user.authorizationToken,
           email: user.email,
@@ -93,13 +105,19 @@ module.exports = {
         reply( Boom.badRequest() ); // user already in system?
     });
   },
-  resendConfirmEmail: function ( request, reply){
+  resendConfirmEmail: function ( request, reply, server){
     if (!request.auth.isAuthenticated) { return reply(Boom.badRequest()); }
 
     User.resetConfirmed(request.auth.credentials.token, function(err, token){
       if( err ){ return reply(Boom.badRequest()); }
 
-      console.log( token );
+      if( server.mailer ) {
+        server.mailer({
+          to: request.auth.credentials.email,
+          subject: 'Confirm your Mahr.io account',
+          html: 'Reset your account <a href="'+ server.hostDomain + '/?confirm='+token + '">here</a>'
+        });
+      }
 
       reply({resendConfirmationToken: true});
     })

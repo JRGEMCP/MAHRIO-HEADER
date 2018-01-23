@@ -67,7 +67,7 @@ module.exports = function ( server ) {
           case 'login':
             return SessionCtrl.login( request, reply );
           case 'recover-password':
-            return SessionCtrl.recoverPassword( request, reply );
+            return SessionCtrl.recoverPassword( request, reply, server );
           case 'is-valid-token':
             return SessionCtrl.isValidToken( request, reply );
           case 'change-password':
