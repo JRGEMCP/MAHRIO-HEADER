@@ -19,7 +19,7 @@ module.exports = {
     if( req.params.id ){
       query['_id'] = req.params.id;
     }
-    if( req.params.id && typeof req.query.edit !== 'undefined') {
+    if( typeof req.query.edit !== 'undefined') {
       delete query.published;
       pop = '';
     }
