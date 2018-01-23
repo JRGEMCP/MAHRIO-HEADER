@@ -115,7 +115,7 @@ module.exports = {
         server.mailer({
           to: request.auth.credentials.email,
           subject: 'Confirm your Mahr.io account',
-          html: 'Reset your account <a href="'+ server.hostDomain + '/?confirm='+token + '">here</a>'
+          html: 'Activate your account <a href="'+ server.hostDomain + '/?confirm='+token + '">here</a>'
         });
       }
 
