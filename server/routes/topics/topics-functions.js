@@ -7,7 +7,7 @@ try {
   var prequire = require('parent-require')
     , mongoose = prequire('mongoose');
 }
-
+var async = require('async');
 var Boom = require('boom'),
   Topic = mongoose.model('Topic');
 
@@ -16,17 +16,29 @@ module.exports = {
     let query = {published: true},
       pop = 'articles';
 
-    if( req.params.id ){
+    if( req.params.id && ['all','url'].indexOf(req.params.id) == -1 ){
       query['_id'] = req.params.id;
+    }
+    if( req.params.id && req.params.id === 'url' ){
+      query['link'] = req.params.url;
     }
     if( typeof req.query.edit !== 'undefined') {
       delete query.published;
-      pop = '';
     }
     Topic.find(query).populate(pop).exec( function(err, topics) {
       if( err ) { return rep( Boom.badRequest(err) ); }
 
-      rep({topics: topics});
+      async.each( topics, function(topic, cb){
+        async.each( topic.articles, function(article, cb2){
+          article.populate('sections', function(err, sec){
+            cb2();
+          })
+        }, function(){
+          cb();
+        })
+      }, function(){
+        rep({topics: topics});
+      });
     });
   },
   create: function(req, rep){
@@ -49,7 +61,7 @@ module.exports = {
   },
   update: function(req, rep){
     let updateObj = {};
-    if( req.auth.credentials.access.indexOf('admin') === -1 ){
+    if( req.auth.credentials.access.indexOf('instructor') === -1 ){
       return rep( Boom.forbidden() );
     }
 

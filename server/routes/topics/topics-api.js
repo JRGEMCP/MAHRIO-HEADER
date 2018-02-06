@@ -5,7 +5,7 @@ var TopicCtrl = require('./topics-functions');
 module.exports = function( server ) {
   server.route({
     method: 'GET',
-    path: '/api/topics/{id?}',
+    path: '/api/topics/{id}/{url?}',
     config: {
       handler: TopicCtrl.get
     }

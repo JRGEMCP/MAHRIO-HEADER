@@ -1,14 +1,14 @@
-<div style="height: 56px; width: 100%;">
-  <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+<div style="height: 56px; width: 100%; background: rgba(255,255,255,.6);" class="fixed-top">
+  <nav class="navbar navbar-toggleable-md">
       <div class="container">
           <button class="navbar-toggler navbar-toggler-right" role="button" (click)="isCollapsed = !isCollapsed">
               <span class="navbar-toggler-icon"></span>
           </button>
           <div class="col-9 hidden-md-up">
-              <a class="navbar-brand" href="/">Mahr.io</a>
+              <a class="navbar-brand" href="/">MAHR.IO</a>
           </div>
 
-          <a class="navbar-brand hidden-sm-down" href="/">Mahr.io</a>
+          <a class="navbar-brand hidden-sm-down" href="/">MAHR.IO</a>
 
           <div class="collapse navbar-collapse text-xs-left text-xl-left text-right" [ngbCollapse]="!isCollapsed">
               <div class="btn-block mt-3 hidden-lg-up"></div>
@@ -50,10 +50,10 @@
 
               </ul>
               <div class="form-inline my-2 my-lg-0">
-                  <ul class="nav text-white btn-block">
+                  <ul class="nav btn-block">
                       <notification *ngIf="isLoggedIn" ></notification>
                       <li class="nav-item" *ngIf="isLoggedIn">
-                          <a class="nav-link text-white" href="/dashboard" role="button">Dashboard</a>
+                          <a class="nav-link" href="/dashboard" role="button">Dashboard</a>
                       </li>
                       <session class="btn-block" (auth)="proxyAuth($event)"></session>
                   </ul>

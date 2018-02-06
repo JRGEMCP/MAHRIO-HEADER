@@ -44,7 +44,7 @@ export class ArticleService {
   }
   getPublished(){
     let options = new RequestOptions({});
-    if( this._token && auth ) {
+    if( this._token ) {
       options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) })
     }
     return this.http.get('/api/articles?published=true', options)

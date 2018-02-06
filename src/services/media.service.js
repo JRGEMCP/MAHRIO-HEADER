@@ -20,7 +20,8 @@ export class MediaService{
       .toPromise();
   }
   getSignedUrl( url ){
-    return this.http.get( url )
+    let options = new RequestOptions({headers: new Headers({ 'Authorization': this._token}) });
+    return this.http.get( url, options )
       .map(res => res.json())
       .toPromise()
   }
@@ -32,7 +33,8 @@ export class MediaService{
   }
 
   save( img ){
-    return this.http.post('/api/images', {image: img})
+    let options = new RequestOptions({headers: new Headers({ 'Authorization': this._token}) });
+    return this.http.post('/api/images', {image: img}, options)
       .map(res => res.json())
       .toPromise()
   }

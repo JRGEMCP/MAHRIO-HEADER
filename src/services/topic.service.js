@@ -28,10 +28,15 @@ export class TopicService {
   set currentTopic( topic ){
     this.topic = topic;
   }
-  list( id, edit ){
+  getOneByLink( link ) {
+    return this.http.get('/api/topics/url/'+link)
+      .map( res => res.json())
+      .catch( this.handleError );
+  }
+  list( id, edit, token ){
     let options = new RequestOptions({});
-    if( this._token ) {
-      options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) })
+    if( this._token || token ) {
+      options = new RequestOptions({ headers: new Headers({'Authorization': this._token || token}) })
     }
     return this.http.get('/api/topics' + (id ? '/'+id : '') + (edit ? '?edit' : ''), options)
         .map( res => res.json())

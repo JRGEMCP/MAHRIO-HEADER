@@ -13,6 +13,8 @@ export class Feature {
     this._articles = [];
     this._published = false;
 
+    this._fullArticles = [];
+
     if( formBuilder ) {
       this.loadForm(formBuilder);
     } else {
@@ -62,6 +64,8 @@ export class Feature {
 
   get articles(){ return this._articles; }
   set articles(val){ this._articles = val; }
+  set currentArticles(val){ this._fullArticles = val; }
+  get currentArticles(){ return this._fullArticles; }
 
   get published(){ return this._published; }
   set published(val){ this._published = !!val; }
@@ -75,15 +79,23 @@ export class Feature {
     newInstance._created = payload.created;
     newInstance._deck = payload.deck;
     newInstance._published = payload.published;
-    payload.body.forEach( p => {
-      newInstance._body.push( p );
-    });
-    newInstance._tags = (payload.tags && payload.tags.length ?  new Set(payload.tags) : new Set() );
-    newInstance._articles = (payload.articles && payload.articles.length ?  new Set(payload.articles) : new Set() );
 
-    // payload.articles.forEach( article => {
-    //   newInstance._articles.push( Article.fromPayload(article) );
-    // });
+    newInstance._tags = (payload.tags && payload.tags.length ?  new Set(payload.tags) : new Set() );
+    newInstance._articles = (payload.articles && payload.articles.length ?  new Set(payload.articles.map(art => art._id)) : new Set() );
+
+    payload.body.forEach( p => {
+      let articleId = p.match(/^___link___article___(.*?)___inline___$/);
+      if( articleId ) {
+        articleId = articleId[1];
+        payload.articles.forEach( article => {
+          if( article._id == articleId){
+            newInstance._body.push( {type: 'article', content: Article.fromPayload(article) });
+          }
+        })
+      } else {
+        newInstance._body.push( {type: null, content: p });
+      }
+    });
 
     if( fb ){ newInstance.loadForm(fb); }
     return newInstance;
