@@ -34,7 +34,7 @@ module.exports = {
       }
       Article
         .find( find )
-        .sort( {created: -1})
+        .sort( {lastUpdated: -1, created: -1})
         .populate('sections')
         .exec( function(err, articles){
           if( err ) { return rep( Boom.badRequest(err) ); }
@@ -70,6 +70,7 @@ module.exports = {
       return rep(Boom.badRequest());
     }
 
+    req.payload.article.lastUpdated = Date.now(); //TODO: Fix update so that it santizes payload.article
     Article.update({_id: req.params.id}, req.payload.article, {multi: false}, function(err,article){
       if( err ) { return rep( Boom.badRequest(  err) ); }
 
@@ -79,14 +80,14 @@ module.exports = {
 
   },
   tags: function(req, rep){
-    Article.update({_id: req.params.id, creator: req.auth.credentials.id}, {tags: req.payload.tags}, {multi: false}, function(err,article){
+    Article.update({_id: req.params.id, creator: req.auth.credentials.id}, {tags: req.payload.tags, lastUpdated: Date.now()}, {multi: false}, function(err,article){
       if( err ) { return rep( Boom.badRequest(  err) ); }
 
       return rep({article: article});
     });
   },
   updateCodeRepo: function(req, rep){
-    Article.update({_id: req.params.id}, {code: {cache: req.payload.content, git: true}, state: 'DEVELOPING'}, {multi: false}, function(err,article){
+    Article.update({_id: req.params.id}, {code: {cache: req.payload.content, git: true}, state: 'DEVELOPING', lastUpdated: Date.now()}, {multi: false}, function(err,article){
       if( err ) { return rep( Boom.badRequest(err) ); }
 
       return rep({article: article});
@@ -120,7 +121,7 @@ module.exports = {
   },
   publish: function(req, rep){
     Article.update({_id: req.params.id, creator: req.auth.credentials.id},
-      {published: true, state: 'DEPLOYED'},
+      {published: true, state: 'DEPLOYED', lastUpdated: Date.now()},
       {multi: false},
       function(err,article){
         if( err ) { return rep( Boom.badRequest(err) ); }

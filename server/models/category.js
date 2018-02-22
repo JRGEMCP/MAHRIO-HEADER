@@ -17,7 +17,8 @@ var schema = mongoose.Schema({
   topics: [{type: mongoose.Schema.Types.ObjectId, ref: 'Topic'}],
   published: {type: Boolean, default: false},
   created: { type: Date, default: Date.now },
-  creator: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
+  creator: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+  questions: [{type: mongoose.Schema.Types.ObjectId, ref: 'Question'}]
 });
 
 module.exports = mongoose.model('Category', schema);

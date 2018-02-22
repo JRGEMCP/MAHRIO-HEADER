@@ -18,7 +18,6 @@ export class ToastComponent {
 
   ngOnInit(){
     if( this.alert.dismiss ) {
-      console.log('I hit it', this.alert.dismiss);
       setTimeout( () => {
         this.reset.emit();
       }, this.alert.dismiss);

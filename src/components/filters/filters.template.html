@@ -7,28 +7,40 @@
                     Tutorials
                 </a>
             </li>
-            <!--<li class="nav-item   collapse">-->
-                <!--<a class="nav-link" (click)="filtersPane = !filtersPane">-->
-                    <!--Filter-->
-                    <!--<i class="fa fa-chevron-circle-right"></i>-->
-                <!--</a>-->
-            <!--</li>-->
         </ul>
-        <div class="form-inline my-2 my-lg-0">
-            <form class="form-inline">
-                <input class="form-control mr-sm-2" type="text"
-                       placeholder="Filter by keyword"
-                       aria-label="Filter by keyword"
-                       #textFilter
-                       (keyup)="onTextFilterChange(textFilter.value)"
-                >
-                <button (click)="clearTextFilter()" [disabled]="!textFilter.value.length">
-                    <i class="fa"
-                       [ngClass]="{'fa-search': !textFilter.value.length, 'fa-close': textFilter.value.length}"
-                    ></i>
-                </button>
-
-            </form>
+        <div class="">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="input-group mt-3 hidden-md-up">
+                        <input type="text" class="form-control" placeholder="Search for..."
+                               #textFilter
+                               (keyup)="onTextFilterChange(textFilter.value)" >
+                        <span class="input-group-btn">
+                            <button class="btn btn-secondary"
+                                    (click)="clearTextFilter()" [disabled]="!textFilter.value.length"
+                                    type="button">
+                                <i class="fa"
+                                    [ngClass]="{'fa-search': !textFilter.value.length, 'fa-close': textFilter.value.length}">
+                                </i>
+                            </button>
+                        </span>
+                    </div>
+                    <div class="input-group hidden-sm-down">
+                        <input type="text" class="form-control" placeholder="Search for..."
+                               #textFilter
+                               (keyup)="onTextFilterChange(textFilter.value)">
+                        <span class="input-group-btn">
+                            <button class="btn btn-secondary"
+                                    (click)="clearTextFilter()" [disabled]="!textFilter.value.length"
+                                    type="button">
+                                <i class="fa"
+                                   [ngClass]="{'fa-search': !textFilter.value.length, 'fa-close': textFilter.value.length}">
+                                </i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </nav>

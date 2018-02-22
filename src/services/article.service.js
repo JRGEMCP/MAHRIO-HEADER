@@ -96,6 +96,12 @@ export class ArticleService {
         .map(res => res.json())
         .toPromise();
   }
+  updateSection( id, payload){
+    let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) });
+    return this.http.put(`/api/articles/${id}/sections/${payload.id}`, {section: payload.summary}, options)
+      .map(res => res.json())
+      .toPromise();
+  }
   saveSections( id, payload){
     let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) });
     return this.http.put(`/api/articles/${id}/sections`, {sections: payload.map((pay) => pay.update) }, options)

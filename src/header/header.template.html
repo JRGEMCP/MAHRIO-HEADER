@@ -1,8 +1,8 @@
 <div style="height: 56px; width: 100%; background: rgba(255,255,255,.6);" class="fixed-top">
-  <nav class="navbar navbar-toggleable-md">
+  <nav class="navbar navbar-toggleable-md" style="background: #FFF;">
       <div class="container">
           <button class="navbar-toggler navbar-toggler-right" role="button" (click)="isCollapsed = !isCollapsed">
-              <span class="navbar-toggler-icon"></span>
+              <i class="fa fa-bars" style="font-size: 1.4em;"></i>
           </button>
           <div class="col-9 hidden-md-up">
               <a class="navbar-brand" href="/">MAHR.IO</a>
@@ -23,9 +23,9 @@
                   <li class="nav-item">
                       <a class="nav-link" href="/products" role="button">Products</a>
                   </li>
-                  <!--<li class="nav-item">-->
-                  <!--<a class="nav-link" href="/community" role="button">Community</a>-->
-                  <!--</li>-->
+                  <li class="nav-item" *ngIf="isLoggedIn">
+                      <a class="nav-link" href="/courses" role="button">Courses</a>
+                  </li>
 
               </ul>
               <ul class="navbar-nav mr-auto hidden-md-up">
@@ -44,9 +44,9 @@
                         <a class="nav-link" href="/products" role="button">Products</a>
                       </h2>
                   </li>
-                  <!--<li class="nav-item">-->
-                      <!--<a class="nav-link" href="/community" role="button">Community</a>-->
-                  <!--</li>-->
+                  <li class="nav-item" *ngIf="isLoggedIn">
+                      <a class="nav-link" href="/courses" role="button">Courses</a>
+                  </li>
 
               </ul>
               <div class="form-inline my-2 my-lg-0">
