@@ -15,7 +15,7 @@ var schema = mongoose.Schema({
   articles: [{type: mongoose.Schema.Types.ObjectId, ref: 'Article', unique: true}],
   features: [{type: mongoose.Schema.Types.ObjectId, ref: 'Topic', unique: true}],
   categories: [{type: mongoose.Schema.Types.ObjectId, ref: 'Category', unique: true}],
-  order: [{type: String}] // article_{{id}}_insert || feature_{{id}}_insert || category_{{id}}_insert
+  content: [{type: String}] // article_{{id}}_insert || feature_{{id}}_insert || category_{{id}}_insert
 });
 
 module.exports = mongoose.model('Module', schema);

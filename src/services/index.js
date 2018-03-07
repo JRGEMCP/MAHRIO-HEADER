@@ -5,6 +5,7 @@ import { ArticleService } from './article.service';
 import { TopicService } from './topic.service';
 import { CategoryService } from './category.service';
 import { CourseService } from './course.service';
+import { ModuleService } from './module.service';
 import { ArticleFavoriteService } from './article-favorites.service';
 import { GithubService } from './github.service';
 import { SectionService } from './article-section.service';
@@ -21,6 +22,7 @@ export {
   TopicService,
   CategoryService,
   CourseService,
+  ModuleService,
   ArticleFavoriteService,
   GithubService,
   SectionService,
@@ -38,6 +40,7 @@ export const Services = [
   TopicService,
   CategoryService,
   CourseService,
+  ModuleService,
   ArticleFavoriteService,
   GithubService,
   SectionService,

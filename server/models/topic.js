@@ -14,6 +14,7 @@ var schema = mongoose.Schema({
   deck: {type: String},
   body: [{type: String}], // article_{{id}}_insert
   tags: [{type: String}],
+  state: {type: String, default: 'DISCOVERING'},
   articles: [{type: mongoose.Schema.Types.ObjectId, ref: 'Article', unique: true}],
   created: { type: Date, default: Date.now },
   published: {type: Boolean, default: false},

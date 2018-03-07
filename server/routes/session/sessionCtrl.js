@@ -28,6 +28,7 @@ module.exports = {
   },
   recoverPassword: function (request, reply, server){
     User.recoverPassword( request.payload.email.toLowerCase(), function(token){
+      console.log(token);
       if( server.mailer && token ) {
         server.mailer({
           to: request.payload.email.toLowerCase(),

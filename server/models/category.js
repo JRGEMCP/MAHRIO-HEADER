@@ -14,6 +14,7 @@ var schema = mongoose.Schema({
   deck: {type: String},
   body: [{type:String}],
   tags: [{type:String}],
+  state: {type: String, default: 'DISCOVERING'},
   topics: [{type: mongoose.Schema.Types.ObjectId, ref: 'Topic'}],
   published: {type: Boolean, default: false},
   created: { type: Date, default: Date.now },

@@ -1,0 +1,24 @@
+body.mahrio {
+  header.container {
+    background: #000;
+  }
+  a.navbar-brand.c-js, a.nav-link.c-js {
+    color: rgb(246, 221, 60) !important;
+  }
+  a.navbar-brand.c-css, a.nav-link.c-css {
+    color: rgb(24, 116, 184) !important;
+  }
+  a.navbar-brand.c-html, a.nav-link.c-html {
+    color: rgb(239, 101, 52) !important;
+  }
+  a.c-mahrio {
+    background-color: rgb(222,88,50) !important;
+    color: rgb(254, 239, 70) !important;
+    font-weight: bold;
+    padding: 0.5em 1em;
+    margin: 0;
+  }
+  .navbar-toggler, a.navbar-brand {
+    color: rgb(222, 88, 50);
+  }
+}

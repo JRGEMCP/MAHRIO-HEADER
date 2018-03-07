@@ -28,7 +28,9 @@ var crypto = require('crypto')
   stripeId:       {type: String, default: null},
   deviceToken:    {type: String, default: null},
   github:         {type: Object, default: {token: null, username: null, joined: false, invited: false}},
-  favorites: [{type: mongoose.Schema.Types.ObjectId, ref: 'Article', unique: true}]
+  favorites: [{type: mongoose.Schema.Types.ObjectId, ref: 'Article', unique: true}],
+  courses: [{type: mongoose.Schema.Types.ObjectId, ref: 'Course', unique: true}]
+
 });
 
 function createSalt () { return crypto.randomBytes(128).toString('base64'); }

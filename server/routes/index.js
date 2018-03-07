@@ -16,4 +16,5 @@ module.exports = function( server ) {
   require('./topics/topics-api')(server);
   require('./categories/categories-api')(server);
   require('./courses/courses-api')(server);
+  require('./modules/modules-api')(server);
 };

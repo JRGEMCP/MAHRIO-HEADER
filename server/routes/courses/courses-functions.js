@@ -12,9 +12,31 @@ var Boom = require('boom'),
   Course = mongoose.model('Course');
 
 module.exports = {
+  getCourse: function(id, callback){
+    Course.find({_id: id}).exec( function(err, course){
+      if( err || !course ) {
+        callback();
+      }
+      callback( course );
+    })
+  },
+  addModule: function(id, module, rep){ // INTERNAL
+    Course.update({_id: id}, {$push: {modules: module._id}}, {multi: false}, function(err, update){
+      if( err ){ return rep(Boom.badRequest(err)); }
+
+      return rep({module: module});
+    })
+  },
+  removeModule: function( courseId, moduleId, rep){
+    Course.update({_id: courseId}, {$pop: {modules: moduleId}}, {multi: false}, function(err, update){
+      if( err ){ return rep(Boom.badRequest(err)); }
+
+      return rep({deleted: true});
+    })
+  },
   get: function(req, rep){
     let query = {published: true},
-      pop = 'categories features';
+      pop = 'modules';
 
     if( req.params.id && ['all','url'].indexOf(req.params.id) == -1 ){
       query['_id'] = req.params.id;
@@ -29,11 +51,11 @@ module.exports = {
       if( err ) { return rep( Boom.badRequest(err) ); }
 
       async.each( courses, function(course, cb){
-        async.each( course.categories, function(category, cb2){
-          async.each( category.articles, function(article, cb3){
-            article.populate('sections', function(err, sec){
+        async.each( course.modules, function(module, cb2){
+          async.each( ['articles','features'], function(child, cb3){
+            module.populate(child, function(err){
               cb3();
-            });
+            })
           }, function(){
             cb2();
           });
@@ -74,25 +96,6 @@ module.exports = {
         updateObj = typeof req.query.true !== 'undefined' ? {published: true} : {};
         if( typeof req.query.false !== 'undefined') {
           updateObj = {published: false};
-        }
-        break;
-      case 'features':
-        updateObj = {
-          $set: {
-            features: req.payload.topics || []
-          }
-        }
-        break;
-      case 'categories':
-        updateObj = {
-          $set: {
-            categories: req.payload.product || []
-          }
-        }
-        break;
-      case 'body':
-        updateObj = {
-          body: req.payload.body || []
         }
         break;
       case 'tags':

@@ -1,6 +1,6 @@
-<div style="height: 56px; width: 100%; background: rgba(255,255,255,.6);" class="fixed-top">
-  <nav class="navbar navbar-toggleable-md" style="background: #FFF;">
-      <div class="container">
+<div style="height: 56px; width: 100%; background: #000;" class="fixed-top text-gray-dark">
+  <nav class="navbar navbar-toggleable-md" style="background: #000;">
+      <div class="container" style="background: #000;">
           <button class="navbar-toggler navbar-toggler-right" role="button" (click)="isCollapsed = !isCollapsed">
               <i class="fa fa-bars" style="font-size: 1.4em;"></i>
           </button>
@@ -15,42 +15,49 @@
 
               <ul class="navbar-nav mr-auto hidden-sm-down">
                   <li class="nav-item">
-                      <a class="nav-link" href="/tutorials" role="button">Tutorials</a>
+                      <a class="nav-link c-js" href="/tutorials" role="button">Tutorials</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="/features" role="button">Features</a>
+                      <a class="nav-link c-css" href="/features" role="button">Features</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="/products" role="button">Products</a>
+                      <a class="nav-link c-html" href="/products" role="button">Products</a>
                   </li>
-                  <li class="nav-item" *ngIf="isLoggedIn">
-                      <a class="nav-link" href="/courses" role="button">Courses</a>
+                  <li class="nav-item">
+                      <a class="btn nav-link btn-outline-success" href="/courses" role="button">Courses</a>
                   </li>
 
               </ul>
               <ul class="navbar-nav mr-auto hidden-md-up">
                   <li class="nav-item">
                       <h2 class="text-center">
-                          <a class="nav-link" href="/tutorials" role="button">Tutorials</a>
+                          <a class="nav-link c-js" href="/tutorials" role="button">Tutorials</a>
                       </h2>
                   </li>
                   <li class="nav-item">
                       <h2 class="text-center">
-                        <a class="nav-link" href="/features" role="button">Features</a>
+                        <a class="nav-link c-css" href="/features" role="button">Features</a>
                       </h2>
                   </li>
                   <li class="nav-item">
                       <h2 class="text-center">
-                        <a class="nav-link" href="/products" role="button">Products</a>
+                        <a class="nav-link c-html" href="/products" role="button">Products</a>
                       </h2>
                   </li>
-                  <li class="nav-item" *ngIf="isLoggedIn">
-                      <a class="nav-link" href="/courses" role="button">Courses</a>
+                  <li class="nav-item">
+                      <h2 class="text-center">
+                        <a class="btn btn-outline-success" href="/courses" role="button">Courses</a>
+                      </h2>
                   </li>
 
               </ul>
-              <div class="form-inline my-2 my-lg-0">
+              <div class="form-inline my-2 my-lg-0 text-primary">
                   <ul class="nav btn-block">
+                      <li class="nav-item no-outline" *ngIf="isLoggedIn">
+                          <a class="nav-link" (click)="showMedia = !showMedia;">
+                              <i class="fa fa-file-image-o"></i>
+                          </a>
+                      </li>
                       <notification *ngIf="isLoggedIn" ></notification>
                       <li class="nav-item" *ngIf="isLoggedIn">
                           <a class="nav-link" href="/dashboard" role="button">Dashboard</a>
@@ -62,3 +69,4 @@
       </div>
   </nav>
 </div>
+<mahrio-media [show]="showMedia"></mahrio-media>

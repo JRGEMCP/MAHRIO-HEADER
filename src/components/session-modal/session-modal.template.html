@@ -1,39 +1,41 @@
-<div class="modal-header">
-    <h4 class="modal-title">Session</h4>
-    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
-<div class="modal-body">
-    <div *ngIf="state == 'login'">
-        <login (go)="goTo($event)" (access)="auth($event)"></login>
+<div class="text-gray-dark">
+    <div class="modal-header">
+        <h4 class="modal-title">Session</h4>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
+    <div class="modal-body">
+        <div *ngIf="state == 'login'">
+            <login (go)="goTo($event)" (access)="auth($event)"></login>
+        </div>
 
-    <div *ngIf="state == 'register'">
-        <register (go)="goTo($event)" (access)="auth($event)"></register>
+        <div *ngIf="state == 'register'">
+            <register (go)="goTo($event)" (access)="auth($event)"></register>
+        </div>
+
+        <div *ngIf="state == 'recover-password'">
+            <recover-password (go)="goTo($event)" (done)="activeModal.dismiss()"></recover-password>
+        </div>
+
+        <div *ngIf="state == 'recover-password-update'">
+            <recover-password-update [token]="token" (access)="auth($event)"></recover-password-update>
+        </div>
+
+        <div *ngIf="state == 'confirm-account'">
+            <confirm-account (done)="activeModal.dismiss()"></confirm-account>
+        </div>
+
+        <div *ngIf="state == 'update-password'">
+            <update-password></update-password>
+        </div>
+
+        <div *ngIf="state == 'confirm-account-retry'">
+            <confirm-account-retry (done)="activeModal.dismiss()"></confirm-account-retry>
+        </div>
+
     </div>
-
-    <div *ngIf="state == 'recover-password'">
-        <recover-password (go)="goTo($event)" (done)="activeModal.dismiss()"></recover-password>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="activeModal.close(false)">Close</button>
     </div>
-
-    <div *ngIf="state == 'recover-password-update'">
-        <recover-password-update [token]="token" (access)="auth($event)"></recover-password-update>
-    </div>
-
-    <div *ngIf="state == 'confirm-account'">
-        <confirm-account (done)="activeModal.dismiss()"></confirm-account>
-    </div>
-
-    <div *ngIf="state == 'update-password'">
-        <update-password></update-password>
-    </div>
-
-    <div *ngIf="state == 'confirm-account-retry'">
-        <confirm-account-retry (done)="activeModal.dismiss()"></confirm-account-retry>
-    </div>
-
-</div>
-<div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="activeModal.close(false)">Close</button>
 </div>

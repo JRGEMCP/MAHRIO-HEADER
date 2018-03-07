@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class CategoryService {
+export class ModuleService {
   static get parameters(){
     return [Http, OauthSessionService];
   }
@@ -19,50 +19,24 @@ export class CategoryService {
       this._token = token;
       this.token.next( token );
     });
-    this.categories = [];
-    this.category;
-  }
-  get currentCategory(){
-    return this.category;
-  }
-  set currentCategory( topic ){
-    this.category = topic;
-  }
-  list( id, edit, token ){
-    let options = new RequestOptions({});
-    if( this._token || token ) {
-      options = new RequestOptions({ headers: new Headers({'Authorization': this._token || token}) })
-    }
-    return this.http.get('/api/categories' + (id ? '/'+id : '') + (edit ? '?edit' : ''), options)
-      .map( res => res.json())
-      .catch( this.handleError );
-  }
-  getPublished(){
-    let options = new RequestOptions({});
-    if( this._token ) {
-      options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) })
-    }
-    return this.http.get('/api/categories/all', options)
-      .map( res => res.json())
-      .catch( this.handleError );
   }
   post( payload ) {
     let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) });
-    return this.http.post('/api/categories', payload, options)
+    return this.http.post('/api/modules', payload, options)
       .map(res => res.json())
       .toPromise();
   }
   put( id, payload, type ) {
     let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) });
-    return this.http.put(`/api/categories/${id}/${type}`, payload, options)
+    return this.http.put(`/api/modules/${id}/${type}`, payload, options)
       .map(res => res.json())
       .toPromise();
   }
-  remove( id) {
+  remove( id, courseId) {
     let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) });
-    return this.http.delete(`/api/categories/${id}`, options)
+    return this.http.delete(`/api/modules/${id}?courseId=`+courseId, options)
       .map(res => res.json())
-      .catch( this.handleError );
+      .toPromise();
   }
 
   handleError(error){

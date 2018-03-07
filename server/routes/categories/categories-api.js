@@ -5,7 +5,7 @@ var CategoryCtrl = require('./category-functions');
 module.exports = function( server ) {
   server.route({
     method: 'GET',
-    path: '/api/categories',
+    path: '/api/categories/{id}/{url?}',
     config: {
       handler: CategoryCtrl.get
     }
@@ -15,7 +15,8 @@ module.exports = function( server ) {
     method: 'POST',
     path: '/api/categories',
     config: {
-      handler: CategoryCtrl.create
+      handler: CategoryCtrl.create,
+      auth: 'simple'
     }
   });
 
@@ -32,7 +33,8 @@ module.exports = function( server ) {
     method: 'DELETE',
     path: '/api/categories/{id}',
     config: {
-      handler: CategoryCtrl.remove
+      handler: CategoryCtrl.remove,
+      auth: 'simple'
     }
   });
 }

@@ -10,3 +10,8 @@ header {
     max-width: 100%;
   }
 }
+a.btn-outline-success {
+  &::hover {
+    background: transparent;
+  }
+}

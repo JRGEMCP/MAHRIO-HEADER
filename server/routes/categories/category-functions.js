@@ -7,20 +7,49 @@ try {
   var prequire = require('parent-require')
     , mongoose = prequire('mongoose');
 }
-
-var Boom = require('boom'),
+var async = require('async'),
+  Boom = require('boom'),
   Category = mongoose.model('Category');
 
 module.exports = {
   get: function(req, rep){
-    Category.find({published: true}).populate('topics').exec( function(err, categories) {
+    let query = {published: true},
+      pop = 'topics';
+
+    if( req.params.id && ['all','url'].indexOf(req.params.id) == -1 ){
+      query['_id'] = req.params.id;
+    }
+    if( req.params.id && req.params.id === 'url' ){
+      query['link'] = req.params.url;
+    }
+    if( typeof req.query.edit !== 'undefined') {
+      delete query.published;
+    }
+
+    Category.find(query).populate(pop).exec( function(err, categories) {
       if( err ) { return rep( Boom.badRequest(err) ); }
 
-      rep({categories: categories});
+      async.each( categories, function(category, cb){
+        async.each( category.topics, function(feature, cb2){
+          feature.populate('articles', function(err){
+            cb2();
+          });
+        }, function(){
+          cb();
+        })
+      }, function(){
+        rep({categories: categories});
+      });
     });
   },
-  create: function(req, rep){ console.log( req.payload.topic );
-    Category.create( req.payload.category, function ( err ) {
+  create: function(req, rep){
+    if(req.payload.category && req.payload.category.title && req.payload.category.link ){
+      req.payload.category.creator = req.auth.credentials.id;
+    } else {
+      return rep( Boom.badRequest() );
+    }
+
+    Category.create( req.payload.category, function ( err, category ) {
       if( err ) {
         if( 11000 === err.code || 11001 === err.code ) {
           return rep( Boom.badRequest("Duplicate key error index") );
@@ -28,12 +57,12 @@ module.exports = {
           return rep( Boom.badRequest(err) );
         }
       }
-      rep({created: true});
+      rep({category: category});
     });
   },
   update: function(req, rep){
     let updateObj = {};
-    if( req.auth.credentials.access.indexOf('admin') === -1 ){
+    if( req.auth.credentials.access.indexOf('instructor') === -1 ){
       return rep( Boom.forbidden() );
     }
 
@@ -47,6 +76,11 @@ module.exports = {
       case 'topics':
         updateObj = {
           topics: req.payload.topics || []
+        }
+        break;
+      case 'body':
+        updateObj = {
+          body: req.payload.body || []
         }
         break;
       case 'tags':

@@ -10,3 +10,11 @@
     max-height:200px;
   }
 }
+.media-overlay {
+  margin-top: 56px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  background: #fff;
+  z-index: 99;
+}

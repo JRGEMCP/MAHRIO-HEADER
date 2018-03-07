@@ -1,7 +1,7 @@
-import { Module } from './module.model';
+import { Feature } from './feature.model';
 import { Validators } from '@angular/forms';
 
-export class Course {
+export class Product {
   constructor( formBuilder ) {
     this._id = '';
     this._title = '';
@@ -10,10 +10,9 @@ export class Course {
     this._created = '';
     this._deck = '';
     this._tags = [];
-    this._modules = [];
     this._published = false;
 
-    this._fullArticles = [];
+    this.topics = [];
 
     if( formBuilder ) {
       this.loadForm(formBuilder);
@@ -62,16 +61,11 @@ export class Course {
     return arr;
   }
 
-  get modules(){ return this._modules; }
-  set modules(val){ this._modules = val; }
-  set currentArticles(val){ this._fullArticles = val; }
-  get currentArticles(){ return this._fullArticles; }
-
   get published(){ return this._published; }
   set published(val){ this._published = !!val; }
 
   static fromPayload( payload, fb ){
-    const newInstance = new Course();
+    const newInstance = new Feature();
 
     newInstance._id = payload._id;
     newInstance._title = payload.title;
@@ -80,27 +74,22 @@ export class Course {
     newInstance._deck = payload.deck;
     newInstance._published = payload.published;
 
-    payload.modules.forEach( module => {
-      let m = Module.fromPayload( module );
-      newInstance._modules.push( m );
+    newInstance._tags = (payload.tags && payload.tags.length ?  new Set(payload.tags) : new Set() );
+    newInstance._topics = (payload.topics && payload.topics.length ?  new Set(payload.topics.map(art => art._id)) : new Set() );
+
+    payload.body.forEach( p => {
+      let topicId = p.match(/^___link___topic___(.*?)___inline___$/);
+      if( topicId ) {
+        topicId = topicId[1];
+        payload.topics.forEach( topic => {
+          if( topic._id == topicId){
+            newInstance._body.push( {type: 'topic', content: Feature.fromPayload(topic) });
+          }
+        })
+      } else {
+        newInstance._body.push( {type: null, content: p });
+      }
     });
-
-    //newInstance._tags = (payload.tags && payload.tags.length ?  new Set(payload.tags) : new Set() );
-    //newInstance._articles = (payload.articles && payload.articles.length ?  new Set(payload.articles.map(art => art._id)) : new Set() );
-
-    // payload.body.forEach( p => {
-    //   let articleId = p.match(/^___link___article___(.*?)___inline___$/);
-    //   if( articleId ) {
-    //     articleId = articleId[1];
-    //     payload.articles.forEach( article => {
-    //       if( article._id == articleId){
-    //         newInstance._body.push( {type: 'article', content: Article.fromPayload(article) });
-    //       }
-    //     })
-    //   } else {
-    //     newInstance._body.push( {type: null, content: p });
-    //   }
-    // });
 
     if( fb ){ newInstance.loadForm(fb); }
     return newInstance;
@@ -109,20 +98,11 @@ export class Course {
   get form(){ return this._form; }
   get payload(){
     return {
-      course: {
+      category: {
         title: this._form.controls.title.value,
         link: this._form.controls.link.value,
         deck: this._form.controls.deck.value
       }
     };
-  }
-  addModule( module ) {
-    this._modules.push(module);
-  }
-  removeModule( id ) {
-    let i = this._modules.map(m => m.id).indexOf( id );
-    if( i !== -1 ) {
-      this._modules.splice( i, 1);
-    }
   }
 }

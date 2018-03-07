@@ -20,13 +20,13 @@ export class CourseService {
       this.token.next( token );
     });
     this.topics = [];
-    this.topic;
+    this.course;
   }
-  get currentTopic(){
-    return this.topic;
+  get currentCourse(){
+    return this.course;
   }
-  set currentTopic( topic ){
-    this.topic = topic;
+  set currentCourse( course ){
+    this.course = course;
   }
   getOneByLink( link ) {
     return this.http.get('/api/courses/url/'+link)
@@ -39,6 +39,15 @@ export class CourseService {
       options = new RequestOptions({ headers: new Headers({'Authorization': this._token || token}) })
     }
     return this.http.get('/api/courses' + (id ? '/'+id : '') + (edit ? '?edit' : ''), options)
+      .map( res => res.json())
+      .catch( this.handleError );
+  }
+  getPublished(){
+    let options = new RequestOptions({});
+    if( this._token ) {
+      options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) })
+    }
+    return this.http.get('/api/courses/all', options)
       .map( res => res.json())
       .catch( this.handleError );
   }

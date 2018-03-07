@@ -8,6 +8,7 @@ import { MediaService, ClipboardService } from '../../services';
 @Component({
   selector: 'mahrio-media',
   template,
+  inputs: ['show'],
   styles: [style],
   queries: {
     fileUploadEl: new ViewChild('fileUpload')
@@ -23,6 +24,7 @@ export class MahrioMediaComponent {
     this.media = media;
     this.clip = clip;
     this.copyEvent = new EventEmitter();
+    this.toggle = new EventEmitter();
   }
   ngOnInit(){
     this.media.get().then( res => {

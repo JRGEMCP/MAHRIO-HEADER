@@ -42,6 +42,15 @@ export class TopicService {
         .map( res => res.json())
         .catch( this.handleError );
   }
+  getPublished(){
+    let options = new RequestOptions({});
+    if( this._token ) {
+      options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) })
+    }
+    return this.http.get('/api/topics/all', options)
+      .map( res => res.json())
+      .catch( this.handleError );
+  }
   post( payload ) {
     let options = new RequestOptions({ headers: new Headers({'Authorization': this._token}) });
     return this.http.post('/api/topics', payload, options)
