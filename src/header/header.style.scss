@@ -1,7 +1,9 @@
 @import "../stylesheet/global";
 
-header {
-  font-size: 1.5rem;
+.header {
+  height: 56px;
+  width: 100%;
+  background: #FFF;
 }
 
 @media(max-width: 575px) {
