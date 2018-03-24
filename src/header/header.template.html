@@ -5,48 +5,48 @@
               <i class="fa fa-bars" style="font-size: 1.4em;"></i>
           </button>
           <div class="col-9 hidden-md-up">
-              <a class="navbar-brand" href="/">MAHR.IO</a>
+              <a class="navbar-brand" [routerLink]="['/']">MAHR.IO</a>
           </div>
 
-          <a class="navbar-brand hidden-sm-down" href="/">MAHR.IO</a>
+          <a class="navbar-brand hidden-sm-down" [routerLink]="['/']">MAHR.IO</a>
 
-          <div class="collapse navbar-collapse text-xs-left text-xl-left text-right" [ngbCollapse]="!isCollapsed">
+          <div class="collapse navbar-collapse text-xs-left text-xl-left text-right" [collapse]="!isCollapsed">
               <div class="btn-block mt-3 hidden-lg-up"></div>
 
               <ul class="navbar-nav mr-auto hidden-sm-down">
                   <li class="nav-item">
-                      <a class="nav-link c-js" href="/tutorials" role="button">Tutorials</a>
+                      <a class="nav-link c-js" [routerLink]="['/', 'tutorials']" role="button">Tutorials</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link c-css" href="/features" role="button">Features</a>
+                      <a class="nav-link c-css" [routerLink]="['/', 'features']" role="button">Features</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link c-html" href="/products" role="button">Products</a>
+                      <a class="nav-link c-html" [routerLink]="['/', 'products']" role="button">Products</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="/courses" role="button">Courses</a>
+                      <a class="nav-link" [routerLink]="['/', 'courses']" role="button">Courses</a>
                   </li>
 
               </ul>
               <ul class="navbar-nav mr-auto hidden-md-up">
                   <li class="nav-item">
                       <h2 class="text-center">
-                          <a class="nav-link c-js" href="/tutorials" role="button">Tutorials</a>
+                          <a class="nav-link c-js" [routerLink]="['/', 'tutorials']" role="button">Tutorials</a>
                       </h2>
                   </li>
                   <li class="nav-item">
                       <h2 class="text-center">
-                        <a class="nav-link c-css" href="/features" role="button">Features</a>
+                        <a class="nav-link c-css" [routerLink]="['/', 'features']" role="button">Features</a>
                       </h2>
                   </li>
                   <li class="nav-item">
                       <h2 class="text-center">
-                        <a class="nav-link c-html" href="/products" role="button">Products</a>
+                        <a class="nav-link c-html" [routerLink]="['/', 'products']" role="button">Products</a>
                       </h2>
                   </li>
                   <li class="nav-item">
                       <h2 class="text-center">
-                        <a class="nav-link" href="/courses" role="button">Courses</a>
+                        <a class="nav-link" [routerLink]="['/', 'courses']" role="button">Courses</a>
                       </h2>
                   </li>
 
@@ -58,9 +58,9 @@
                               <i class="fa fa-file-image-o"></i>
                           </a>
                       </li>
-                      <notification *ngIf="isLoggedIn" ></notification>
+                      <!--<notification *ngIf="isLoggedIn" ></notification>-->
                       <li class="nav-item" *ngIf="isLoggedIn">
-                          <a class="nav-link" href="/dashboard" role="button">Dashboard</a>
+                          <a class="nav-link"  [routerLink]="['/', 'dashboard']" role="button">Dashboard</a>
                       </li>
                       <session class="btn-block" (auth)="proxyAuth($event)"></session>
                   </ul>

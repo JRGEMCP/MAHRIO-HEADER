@@ -27,7 +27,6 @@ import { SubHeaderComponent } from './sub-header/sub-header.component';
 export {
   SessionComponent,
 
-  SessionModalComponent,
   LoginComponent,
   RegisterComponent,
   RecoverPasswordComponent,
@@ -55,7 +54,6 @@ export {
 export const Components = [
   SessionComponent,
 
-  SessionModalComponent,
   LoginComponent,
   RegisterComponent,
   RecoverPasswordComponent,

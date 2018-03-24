@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+//import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+
 import template from './session-modal.template.html';
 
 @Component({
@@ -11,10 +13,10 @@ import template from './session-modal.template.html';
 export class SessionModalComponent {
 
   static get parameters(){
-    return [NgbActiveModal];
+    return [BsModalRef];
   }
-  constructor(NgbActiveModal){
-    this.activeModal = NgbActiveModal;
+  constructor(BsModalRef){
+    this.bsModalRef = BsModalRef;
   }
 
   ngOnInit(){
@@ -24,7 +26,7 @@ export class SessionModalComponent {
     this.state = state;
   }
   auth( user ){
-    this.activeModal.close( user );
+    this.bsModalRef.hide( user );
     window.location.href = '/dashboard/';
   }
 

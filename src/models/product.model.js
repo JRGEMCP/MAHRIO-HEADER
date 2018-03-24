@@ -13,6 +13,7 @@ export class Product {
     this._published = false;
 
     this.topics = [];
+    this.fullTopics = [];
 
     if( formBuilder ) {
       this.loadForm(formBuilder);
@@ -51,6 +52,11 @@ export class Product {
   get body(){ return this._body; }
   set body( val ){ this._body = val; }
 
+  get features(){ return this._topics; }
+  set features(val){ this._topics = val; }
+  set currentFeature(val){ this._fullTopics = val; }
+  get currentFeature(){ return this._fullTopics; }
+
   get tags(){ return this._tags; }
   set tags(val){ this._tags = val; }
   get tagsArray(){
@@ -65,7 +71,7 @@ export class Product {
   set published(val){ this._published = !!val; }
 
   static fromPayload( payload, fb ){
-    const newInstance = new Feature();
+    const newInstance = new Product();
 
     newInstance._id = payload._id;
     newInstance._title = payload.title;

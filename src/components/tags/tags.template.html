@@ -13,7 +13,9 @@
         <div class="input-group">
             <input id="tags" type="text" formControlName="tag" placeholder="Enter tag"
                    [ngClass]="{'form-control-danger': !isTag_valid && wasTag_touched}"
-                   [ngbTypeahead]="search" [resultTemplate]="rt" (selectItem)="selectItem($event)"
+                   [typeahead]="search"
+                   [typeaheadItemTemplate]="rt"
+                   (typeaheadOnSelect)="selectItem($event)"
                    class="form-control" />
             <span class="input-group-btn">
                 <button class="btn btn-secondary" type="button" (click)="onSubmit()">
