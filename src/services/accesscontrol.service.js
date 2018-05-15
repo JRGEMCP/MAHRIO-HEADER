@@ -10,11 +10,18 @@ export class AccessControlService {
   constructor( http ){
     this.http = http;
     this._token = new BehaviorSubject();
+    this._loggedIn = new BehaviorSubject(false);
   }
   get token(){
     return this._token;
   }
   set token( token ){
     this._token.next( token );
+  }
+  get loggedIn(){
+    return this._loggedIn;
+  }
+  set loggedIn( state ) {
+    this._loggedIn.next( state );
   }
 }

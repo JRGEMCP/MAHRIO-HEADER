@@ -7,7 +7,11 @@ module.exports = function( server ) {
     method: 'GET',
     path: '/api/categories/{id}/{url?}',
     config: {
-      handler: CategoryCtrl.get
+      handler: CategoryCtrl.get,
+      auth: {
+        mode: 'try',
+        strategy: 'simple'
+      }
     }
   });
 

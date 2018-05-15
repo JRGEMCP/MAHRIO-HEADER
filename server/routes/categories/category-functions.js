@@ -24,6 +24,11 @@ module.exports = {
     }
     if( typeof req.query.edit !== 'undefined') {
       delete query.published;
+      if(req.auth.isAuthenticated) {
+        query['creator'] = req.auth.credentials.id;
+      } else {
+        return rep( Boom.unauthorized() );
+      }
     }
 
     Category.find(query).populate(pop).exec( function(err, categories) {

@@ -31,6 +31,7 @@ module.exports = {
       }
       if( req.query.published ) {
         find.published = true;
+        delete find.creator;
       }
       Article
         .find( find )

@@ -158,7 +158,11 @@ schema.statics.login = function(email, passwordToMatch, cb) {
         id: user.id,
         networks: user.networks,
         confirmed: user.confirmed,
-        github: {username: user.githubUsername, token: user.githubToken }
+        github: {
+          joined: user.github.joined || false,
+          invited: user.github.invited || false,
+          username: user.github.username,
+          token: user.github.token }
       });
     });
   });

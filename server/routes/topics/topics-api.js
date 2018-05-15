@@ -7,7 +7,11 @@ module.exports = function( server ) {
     method: 'GET',
     path: '/api/topics/{id}/{url?}',
     config: {
-      handler: TopicCtrl.get
+      handler: TopicCtrl.get,
+      auth: {
+        mode: 'try',
+        strategy: 'simple'
+      }
     }
   });
 

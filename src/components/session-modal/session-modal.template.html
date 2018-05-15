@@ -1,7 +1,7 @@
-<div class="text-gray-dark">
+<div class="text-gray-dark" (onHide)="handler('onHide', $event)">
     <div class="modal-header">
         <h4 class="modal-title">Session</h4>
-        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+        <button type="button" class="close" aria-label="Close" (click)="bsModalRef.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -15,7 +15,7 @@
         </div>
 
         <div *ngIf="state == 'recover-password'">
-            <recover-password (go)="goTo($event)" (done)="activeModal.dismiss()"></recover-password>
+            <recover-password (go)="goTo($event)" (done)="bsModalRef.hide()"></recover-password>
         </div>
 
         <div *ngIf="state == 'recover-password-update'">
@@ -23,7 +23,7 @@
         </div>
 
         <div *ngIf="state == 'confirm-account'">
-            <confirm-account (done)="activeModal.dismiss()"></confirm-account>
+            <confirm-account (done)="bsModalRef.hide()"></confirm-account>
         </div>
 
         <div *ngIf="state == 'update-password'">
@@ -31,11 +31,11 @@
         </div>
 
         <div *ngIf="state == 'confirm-account-retry'">
-            <confirm-account-retry (done)="activeModal.dismiss()"></confirm-account-retry>
+            <confirm-account-retry (done)="bsModalRef.hide()"></confirm-account-retry>
         </div>
 
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="activeModal.close(false)">Close</button>
+        <button type="button" class="btn btn-secondary" (click)="bsModalRef.hide(false)">Close</button>
     </div>
 </div>
